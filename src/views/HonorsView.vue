@@ -46,7 +46,7 @@ const stats = [
 
         <div class="award-table" role="table" aria-label="实验室获奖名录">
           <div class="award-head" role="row">
-            <span>级别</span><span>年份</span><span>赛事 / 项目</span><span>结果</span><span>团队</span>
+            <span>级别</span><span>年份</span><span>赛事 / 项目</span><span>结果</span><span>获得者</span>
           </div>
           <div
             v-for="(item, index) in honors"
