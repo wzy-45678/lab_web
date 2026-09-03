@@ -14,16 +14,16 @@ import SectionHeading from '../components/SectionHeading.vue'
 const submitted = ref(false)
 
 const requirements = [
-  '愿意长期学习，而不是只追求一次比赛结果',
-  '能够按约定推进任务，主动同步问题与进度',
-  '重视实验安全、设备规范和项目资料归档',
-  '接受从基础训练开始，用实践验证学习结果',
+  '以持之以恒、笃学深耕为荣，以好高骛远、急功近利为耻',
+  '以精益求精、砥志研思为荣，以功利刷奖、敷衍赛务为耻',
+  '以恪守承诺、实践求真为荣，以敷衍拖延、掩盖问题为耻',
+  '以重视安全、整洁有序为荣，以违规操作、乱堆乱放为耻',
 ]
 
 const process = [
   { icon: MessageSquareText, step: '01', title: '了解与报名', text: '阅读招新说明，加入招新群并提交基础信息。' },
-  { icon: ClipboardCheck, step: '02', title: '学习与考核', text: '完成基础学习任务，在实践中检验知识掌握与动手能力。' },
-  { icon: UserRoundCheck, step: '03', title: '交流与面试', text: '聊聊兴趣、时间安排和做过的实践，不考偏题怪题。' },
+  { icon: ClipboardCheck, step: '02', title: '学习与考核', text: '完成组别基础的学习任务与考核，在实践中检验知识掌握与动手能力。' },
+  { icon: UserRoundCheck, step: '03', title: '交流与面试', text: '聊聊兴趣、时间安排和做过的实践。' },
 ]
 
 function handleSubmit() {
@@ -68,7 +68,7 @@ function handleSubmit() {
               <li class="tag">自动化</li>
               <li class="tag">计算机</li>
               <li class="tag">通信工程</li>
-              <li class="tag">电子科学</li>
+              <li class="tag">电子科学与技术</li>
               <li class="tag">物联网</li>
               <li class="related-major-note">等相关专业...</li>
             </ul>

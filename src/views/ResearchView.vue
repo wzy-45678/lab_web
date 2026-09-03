@@ -35,7 +35,7 @@ const workflow = [
         <SectionHeading
           v-reveal
           eyebrow="FOCUS AREAS"
-          title="五条方向，共享一套工程基础"
+          title="三条方向，共享一套工程基础"
           description="方向不是孤立的技术标签。每个项目都会经历需求分析、软硬件协作、测试验证和文档沉淀。"
         />
 

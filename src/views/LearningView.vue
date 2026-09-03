@@ -12,10 +12,10 @@ import SectionHeading from '../components/SectionHeading.vue'
 import { learningTracks } from '../data/siteData'
 
 const resources = [
-  { icon: Braces, type: '编程基础', title: 'C 语言与工程代码规范', count: '12 个主题', status: '持续维护' },
-  { icon: CircuitBoard, type: '硬件基础', title: '电路、焊接与仪器使用', count: '09 个主题', status: '持续维护' },
-  { icon: FileCode2, type: '嵌入式', title: 'STM32 外设与调试手册', count: '18 个主题', status: '资料整理中' },
-  { icon: GitBranch, type: '工程协作', title: 'Git、文档与项目复盘', count: '07 个主题', status: '持续维护' },
+  { icon: Braces, type: '编程基础', title: 'C 语言与工程代码规范', count: '0 个主题', status: '正在开发' },
+  { icon: CircuitBoard, type: '硬件基础', title: '电路、焊接与仪器使用', count: '0 个主题', status: '正在开发' },
+  { icon: FileCode2, type: '嵌入式', title: 'STM32 外设与调试手册', count: '0 个主题', status: '正在开发' },
+  { icon: GitBranch, type: '工程协作', title: 'Git、文档与项目复盘', count: '0 个主题', status: '正在开发' },
 ]
 </script>
 
@@ -66,11 +66,11 @@ const resources = [
             v-reveal
             eyebrow="RESOURCE INDEX"
             title="内部学习资料索引"
-            description="首版仅展示资料分类和状态，正式内容可逐步整理为 Markdown 文档。"
+            description="开发中。"
           />
           <div v-reveal class="resource-status">
             <FolderOpen :size="22" />
-            <span>共 46 个主题</span>
+            <span>共 0 个主题</span>
           </div>
         </div>
 

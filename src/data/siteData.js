@@ -12,37 +12,23 @@ export const directions = [
   {
     id: 'embedded',
     index: '01',
-    title: '嵌入式开发',
+    title: '嵌入式',
     summary: '从单片机外设到实时控制系统，建立扎实的软件与硬件协同能力。',
     stack: ['STM32', 'C / C++', 'FreeRTOS'],
   },
   {
     id: 'hardware',
     index: '02',
-    title: '硬件电路',
+    title: '硬件设计',
     summary: '完成原理图、PCB、焊接和调试，理解产品从设计到落地的完整链路。',
     stack: ['模拟电路', 'PCB', '仪器测量'],
   },
   {
-    id: 'iot',
+    id: 'software',
     index: '03',
-    title: '物联网',
-    summary: '围绕感知、连接、平台和应用，搭建可靠的端云协同系统。',
-    stack: ['ESP32', 'MQTT', '传感网络'],
-  },
-  {
-    id: 'vehicle',
-    index: '04',
-    title: '智能车',
-    summary: '结合运动控制、路径规划和视觉感知，训练系统级工程思维。',
-    stack: ['电机控制', '机器视觉', '算法调参'],
-  },
-  {
-    id: 'electronics',
-    index: '05',
-    title: '电子设计',
-    summary: '面向真实问题完成方案论证、模块联调和整机验证。',
-    stack: ['系统设计', '模块联调', '工程文档'],
+    title: '软件开发',
+    summary: '从设备接口到业务应用平台，建立扎实的数据与系统开发能力。',
+    stack: ['上位机', 'Web 开发', '数据处理'],
   },
 ]
 
@@ -86,61 +72,66 @@ export const competitions = [
 ]
 
 export const honors = [
-  { level: '国家级', year: '2025', award: '全国大学生电子设计竞赛', result: '二等奖', team: '智能控制组' },
-  { level: '国家级', year: '2025', award: '全国大学生智能汽车竞赛', result: '二等奖', team: '视觉车组' },
-  { level: '省级', year: '2024', award: '大学生电子设计竞赛', result: '一等奖', team: '仪器仪表组' },
-  { level: '省级', year: '2024', award: '“挑战杯”大学生课外学术科技作品竞赛', result: '二等奖', team: '物联网组' },
-  { level: '省级', year: '2023', award: '大学生创新创业训练计划', result: '优秀结题', team: '嵌入式组' },
+  { level: '国家级', year: '2026', award: '全国大学生智能汽车竞赛-走马观碑', result: '未知', team: '陈红年' },
+  { level: '国家级', year: '2026', award: '嵌入式芯片与系统设计竞赛-st赛道', result: '三等奖', team: '李航昊，周正宏，高恩' },
+  { level: '国家级', year: '2026', award: '蓝桥杯大赛-嵌入式', result: '一等奖', team: '陈红年' },
+  { level: '国家级', year: '2026', award: '蓝桥杯大赛-单片机', result: '二等奖', team: '王泽阳，庞道聪' },
+  { level: '省级', year: '2026', award: '全国大学生电子设计竞赛—H题', result: '一等奖', team: '陈红年，朱翔，王泽阳，李海峰' },
+  { level: '省级', year: '2026', award: '全国大学生电子设计竞赛-H题', result: '三等奖', team: '李航昊，周正宏，高恩' },
+  { level: '省级', year: '2026', award: '全国大学生智能汽车竞赛-人工智能模型', result: '二等奖', team: '高恩，李航昊，周正宏，朱翔，王泽阳' },
+  { level: '省级', year: '2026', award: '全国大学生智能汽车竞赛-走马观碑', result: '三等奖', team: '王泽阳' },
+  { level: '省级', year: '2026', award: '嵌入式芯片与系统设计竞赛-st赛道', result: '二等奖', team: '王泽阳，朱翔，李海峰' },
+  { level: '省级', year: '2026', award: '蓝桥杯大赛-单片机', result: '二等奖', team: '朱翔，曹允峰' },
 ]
 
 export const projects = [
   {
-    title: '自主巡航智能车',
-    category: '智能控制',
-    image: '/images/project-robot.jpg',
-    description: '融合视觉感知、路径规划和底盘控制，实现复杂赛道自主巡航。',
-    tags: ['视觉识别', '运动控制'],
+    title: '有想展示作品的吗',
+    category: 'xxx',
+    image: '/images/project-guangao.jpg',
+    description: '这里介绍你的作品',
+    tags: ['关键词', '关键词'],
   },
-  {
-    title: '多通道数据采集终端',
-    category: '嵌入式',
-    image: '/images/lab-workbench.jpg',
-    description: '面向实验测量设计的高稳定性采集、显示与通信一体化终端。',
-    tags: ['STM32', '高速采样'],
+   {
+    title: '有想展示作品的吗',
+    category: 'xxx',
+    image: '/images/project-guangao.jpg',
+    description: '这里介绍你的作品',
+    tags: ['关键词', '关键词'],
   },
-  {
-    title: '物联网环境监测节点',
-    category: '物联网',
-    image: '/images/project-chip.jpg',
-    description: '集成多类传感器与低功耗通信，完成远程数据监测和告警。',
-    tags: ['ESP32', 'MQTT'],
+    {
+    title: '有想展示作品的吗',
+    category: 'xxx',
+    image: '/images/project-guangao.jpg',
+    description: '这里介绍你的作品',
+    tags: ['关键词', '关键词'],
   },
-  {
-    title: '可编程直流电源',
-    category: '硬件电路',
-    image: '/images/lab-circuit.jpg',
-    description: '覆盖功率变换、闭环控制、保护电路与人机交互完整设计。',
-    tags: ['电源设计', '闭环控制'],
+    {
+    title: '有想展示作品的吗',
+    category: 'xxx',
+    image: '/images/project-guangao.jpg',
+    description: '这里介绍你的作品',
+    tags: ['关键词', '关键词'],
   },
 ]
 
 export const learningTracks = [
   {
-    phase: '基础阶段',
-    duration: '01—04 周',
-    title: '建立共同语言',
-    items: ['C 语言与 Git', '电路基础与仪器使用', '焊接与模块调试'],
-  },
-  {
-    phase: '进阶阶段',
-    duration: '05—10 周',
-    title: '完成方向训练',
-    items: ['单片机外设开发', 'PCB 设计与制板', '通信协议与数据处理'],
-  },
-  {
-    phase: '项目阶段',
+    phase: '嵌入式组',
     duration: '长期实践',
-    title: '进入真实项目',
-    items: ['需求拆解与方案评审', '软硬件联合调试', '竞赛复盘与技术沉淀'],
+    title: '软硬固件开发实现',
+    items: ['MCU 底层驱动开发与 RTOS 实时操作系统应用', '各类硬件通信协议与多模块整机联调', '边缘 AI 模型嵌入式部署与性能优化'],
+  },
+  {
+    phase: '硬件组',
+    duration: '长期实践',
+    title: '电路 PCB 硬件设计',
+    items: ['数模电路设计、器件选型与仿真', 'PCB 绘制、焊接与硬件故障排查', '传感器、电源及功率驱动电路开发'],
+  },
+  {
+    phase: '软件组',
+    duration: '长期实践',
+    title: '上层应用系统搭建',
+    items: ['上位机开发，硬件设备数据交互', 'Web 前后端与数据可视化平台', '脚本工具、数据处理与应用算法'],
   },
 ]

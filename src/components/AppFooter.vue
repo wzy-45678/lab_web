@@ -19,8 +19,8 @@ function toTop() {
       </div>
 
       <div class="footer-contact">
-        <span><MapPin :size="15" /> 实验楼 · 房间信息待补充</span>
-        <span><Mail :size="15" /> lab@example.edu.cn</span>
+        <span><MapPin :size="15" /> 综合实验楼 · 512</span>
+        <span><Mail :size="15" /> 暂未开放</span>
       </div>
 
       <div class="footer-actions">

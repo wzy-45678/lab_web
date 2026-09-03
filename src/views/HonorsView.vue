@@ -5,9 +5,9 @@ import SectionHeading from '../components/SectionHeading.vue'
 import { honors } from '../data/siteData'
 
 const stats = [
-  { value: '08', label: '国家级奖项', icon: Trophy },
-  { value: '21', label: '省级奖项', icon: Medal },
-  { value: '36', label: '项目完成结题', icon: ShieldCheck },
+  { value: '05', label: '国家级奖项', icon: Trophy },
+  { value: '07', label: '省级奖项', icon: Medal },
+  { value: '未知', label: '项目完成结题', icon: ShieldCheck },
 ]
 </script>
 

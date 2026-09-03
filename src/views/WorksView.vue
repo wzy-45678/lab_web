@@ -18,7 +18,7 @@ const process = [
       eyebrow="PROJECT SHOWCASE"
       title="作品展示"
       description="每件作品都由需求、图纸、代码、联调记录和持续迭代共同构成。"
-      image="/images/project-robot.jpg"
+      image="/images/project-chip.jpg"
     />
 
     <section class="section">
