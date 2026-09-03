@@ -21,9 +21,28 @@ const requirements = [
 ]
 
 const process = [
-  { icon: MessageSquareText, step: '01', title: '了解与报名', text: '阅读招新说明，加入招新群并提交基础信息。' },
-  { icon: ClipboardCheck, step: '02', title: '学习与考核', text: '完成组别基础的学习任务与考核，在实践中检验知识掌握与动手能力。' },
-  { icon: UserRoundCheck, step: '03', title: '交流与面试', text: '聊聊兴趣、时间安排和做过的实践。' },
+  {
+    icon: MessageSquareText,
+    step: '01',
+    title: '第一轮｜待定',
+    text: '待定',
+  },
+  {
+    icon: ClipboardCheck,
+    step: '02',
+    title: '第二轮｜待定',
+    groups: [
+      { title: '嵌入式', text: '待定' },
+      { title: '硬件', text: '待定' },
+      { title: '软件', text: '待定' },
+    ],
+  },
+  {
+    icon: UserRoundCheck,
+    step: '03',
+    title: '第三轮｜待定',
+    text: '待定',
+  },
 ]
 
 function handleSubmit() {
@@ -83,7 +102,7 @@ function handleSubmit() {
           v-reveal
           eyebrow="APPLICATION PROCESS"
           title="招新流程"
-          description="流程保持简单透明，让双方都有充分时间了解彼此。"
+          description="招新分为三轮，第一轮统一了解，第二轮按方向考核，第三轮进行交流确认。"
         />
 
         <div class="join-process">
@@ -95,7 +114,13 @@ function handleSubmit() {
             <div class="process-icon"><component :is="item.icon" :size="23" :stroke-width="1.45" /></div>
             <span>{{ item.step }}</span>
             <h3>{{ item.title }}</h3>
-            <p>{{ item.text }}</p>
+            <p v-if="item.text">{{ item.text }}</p>
+            <div v-else class="process-groups">
+              <div v-for="group in item.groups" :key="group.title" class="process-group">
+                <strong>{{ group.title }}</strong>
+                <p>{{ group.text }}</p>
+              </div>
+            </div>
           </article>
         </div>
       </div>
@@ -256,6 +281,33 @@ function handleSubmit() {
 .join-process h3 { margin: 10px 0 12px; }
 .join-process p { font-size: 13px; }
 
+.process-groups {
+  display: grid;
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.process-group {
+  display: grid;
+  grid-template-columns: 58px 1fr;
+  gap: 10px;
+  padding-top: 10px;
+  border-top: 1px solid $color-border;
+}
+
+.process-group strong {
+  color: $color-accent;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.process-group p {
+  margin: 0;
+  color: $color-text;
+  font-size: 11px;
+  line-height: 1.65;
+}
+
 .application-section { border-top: 1px solid $color-border; }
 
 .application-grid {
@@ -356,6 +408,7 @@ function handleSubmit() {
 @media (max-width: 720px) {
   .join-process { grid-template-columns: 1fr; }
   .join-process article { min-height: 0; }
+  .process-group { grid-template-columns: 70px 1fr; }
   .field-row { grid-template-columns: 1fr; }
   .application-form { padding: 22px; }
   .group-channel { align-items: flex-start; }
