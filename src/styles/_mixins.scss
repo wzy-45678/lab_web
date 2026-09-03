@@ -1,0 +1,43 @@
+@use 'variables' as *;
+
+@mixin container {
+  width: min(calc(100% - 48px), $page-width);
+  margin-inline: auto;
+
+  @media (max-width: $breakpoint-mobile) {
+    width: min(calc(100% - 32px), $page-width);
+  }
+}
+
+@mixin section-space {
+  padding-block: 104px;
+
+  @media (max-width: $breakpoint-mobile) {
+    padding-block: 72px;
+  }
+}
+
+@mixin card-surface {
+  background: rgba($color-surface, 0.84);
+  border: 1px solid $color-border;
+  border-radius: $radius-md;
+  transition:
+    transform $transition,
+    border-color $transition,
+    background-color $transition,
+    box-shadow $transition;
+
+  &:hover {
+    transform: translateY(-4px);
+    background: $color-surface-hover;
+    border-color: $color-border-strong;
+    box-shadow: 0 16px 36px rgba(0, 0, 0, 0.18);
+  }
+}
+
+@mixin focus-ring {
+  &:focus-visible {
+    outline: 2px solid $color-accent;
+    outline-offset: 3px;
+  }
+}

@@ -1,0 +1,24 @@
+$color-bg: #14161c;
+$color-bg-deep: #101218;
+$color-surface: #1a1d25;
+$color-surface-hover: #1e222c;
+$color-border: rgba(169, 176, 188, 0.14);
+$color-border-strong: rgba(169, 176, 188, 0.28);
+$color-text: #a9b0bc;
+$color-text-soft: #7f8794;
+$color-white: #ffffff;
+$color-accent: #5096e6;
+$color-accent-soft: rgba(80, 150, 230, 0.14);
+$color-success: #77b69a;
+
+$font-sans: Inter, "PingFang SC", "Microsoft YaHei", "Noto Sans SC", sans-serif;
+$font-mono: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+
+$page-width: 1240px;
+$header-height: 78px;
+$radius-sm: 4px;
+$radius-md: 8px;
+$transition: 0.3s ease;
+
+$breakpoint-tablet: 1024px;
+$breakpoint-mobile: 720px;
