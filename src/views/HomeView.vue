@@ -102,11 +102,11 @@ const advantages = [
           </div>
         </div>
 
-        <div v-reveal class="lab-stats">
-          <div><strong>5+</strong><span>长期研究方向</span></div>
-          <div><strong>12</strong><span>周基础培养周期</span></div>
-          <div><strong>20+</strong><span>年度实践项目</span></div>
-          <div><strong>OPEN</strong><span>持续开放与协作</span></div>
+        <div v-reveal class="lab-about-link">
+          <RouterLink class="button button--secondary" to="/about">
+            了解实验室简介
+            <ArrowRight :size="17" />
+          </RouterLink>
         </div>
       </div>
     </section>
@@ -338,36 +338,15 @@ const advantages = [
   font-size: 13px;
 }
 
-.lab-stats {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
+.lab-about-link {
+  display: flex;
+  justify-content: center;
   margin-top: 48px;
-  padding-block: 30px;
   border-top: 1px solid $color-border;
-  border-bottom: 1px solid $color-border;
+  padding-top: 32px;
 }
 
-.lab-stats div {
-  display: grid;
-  gap: 5px;
-  padding-inline: 28px;
-  border-right: 1px solid $color-border;
-}
-
-.lab-stats div:first-child { padding-left: 0; }
-.lab-stats div:last-child { border-right: 0; }
-
-.lab-stats strong {
-  color: $color-white;
-  font-family: $font-mono;
-  font-size: 22px;
-  font-weight: 500;
-}
-
-.lab-stats span {
-  color: $color-text-soft;
-  font-size: 11px;
-}
+.lab-about-link .button { min-width: 174px; }
 
 .advantages-section {
   background: rgba($color-bg-deep, 0.42);
@@ -445,11 +424,6 @@ const advantages = [
   .environment-grid { grid-template-columns: 1fr; }
   .environment-side { grid-template-columns: 1fr 1fr; grid-template-rows: auto; }
   .environment-image--secondary { min-height: 300px; }
-  .lab-stats { grid-template-columns: repeat(2, 1fr); }
-  .lab-stats div:nth-child(2) { border-right: 0; }
-  .lab-stats div:nth-child(-n + 2) { padding-bottom: 20px; }
-  .lab-stats div:nth-child(n + 3) { padding-top: 20px; border-top: 1px solid $color-border; }
-  .lab-stats div:nth-child(3) { padding-left: 0; }
   .advantage-grid { grid-template-columns: 1fr; }
   .advantage-item { border-right: 0; border-bottom: 1px solid $color-border; }
   .advantage-item:last-child { border-bottom: 0; }
@@ -466,8 +440,6 @@ const advantages = [
   .environment-side { grid-template-columns: 1fr; }
   .environment-image--primary { min-height: 410px; }
   .environment-image--secondary { min-height: 260px; }
-  .lab-stats div { padding-inline: 14px; }
-  .lab-stats strong { font-size: 18px; }
   .advantage-item { padding: 28px 4px; }
   .advantage-top { margin-bottom: 30px; }
   .recruitment-inner { align-items: flex-start; flex-direction: column; }
