@@ -102,7 +102,7 @@ function handleSubmit() {
           v-reveal
           eyebrow="APPLICATION PROCESS"
           title="招新流程"
-          description="招新分为三轮，第一轮统一了解，第二轮按方向考核，第三轮进行交流确认。"
+          description="招新分为三轮，第一轮待定，第二轮待定，第三轮待定。"
         />
 
         <div class="join-process">
@@ -173,9 +173,7 @@ function handleSubmit() {
               <option value="" disabled selected>请选择方向</option>
               <option>嵌入式开发</option>
               <option>硬件电路</option>
-              <option>物联网</option>
-              <option>智能车</option>
-              <option>电子设计</option>
+              <option>软件开发</option>
             </select>
           </label>
 

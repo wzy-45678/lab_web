@@ -118,16 +118,16 @@ export const competitions = [
 ]
 
 export const honors = [
-  { level: '国家级', year: '2026', award: '全国大学生智能汽车竞赛-走马观碑', result: '二等奖', team: '陈红年' },
-  { level: '国家级', year: '2026', award: '嵌入式芯片与系统设计竞赛-st赛道', result: '三等奖', team: '李航昊，周正宏，高恩' },
-  { level: '国家级', year: '2026', award: '蓝桥杯大赛-嵌入式', result: '一等奖', team: '陈红年' },
-  { level: '国家级', year: '2026', award: '蓝桥杯大赛-单片机', result: '二等奖', team: '王泽阳，庞道聪' },
-  { level: '省级', year: '2026', award: '全国大学生电子设计竞赛—H题', result: '一等奖', team: '陈红年，朱翔，王泽阳，李海峰' },
-  { level: '省级', year: '2026', award: '全国大学生电子设计竞赛-H题', result: '三等奖', team: '李航昊，周正宏，高恩' },
-  { level: '省级', year: '2026', award: '全国大学生智能汽车竞赛-人工智能模型', result: '二等奖', team: '高恩，李航昊，周正宏，朱翔，王泽阳' },
-  { level: '省级', year: '2026', award: '全国大学生智能汽车竞赛-走马观碑', result: '三等奖', team: '王泽阳' },
-  { level: '省级', year: '2026', award: '嵌入式芯片与系统设计竞赛-st赛道', result: '二等奖', team: '王泽阳，朱翔，李海峰' },
-  { level: '省级', year: '2026', award: '蓝桥杯大赛-单片机', result: '二等奖', team: '朱翔，曹允峰' },
+  { level: '国家级', year: '2026', award: '全国大学生智能汽车竞赛-走马观碑', result: '二等奖', team: '1' },
+  { level: '国家级', year: '2026', award: '嵌入式芯片与系统设计竞赛-st赛道', result: '三等奖', team: '1' },
+  { level: '国家级', year: '2026', award: '蓝桥杯大赛-嵌入式', result: '一等奖', team: '1' },
+  { level: '国家级', year: '2026', award: '蓝桥杯大赛-单片机', result: '二等奖', team: '2' },
+  { level: '省级', year: '2026', award: '全国大学生电子设计竞赛—H题', result: '一等奖', team: '2' },
+  { level: '省级', year: '2026', award: '全国大学生电子设计竞赛-H题', result: '三等奖', team: '1' },
+  { level: '省级', year: '2026', award: '全国大学生智能汽车竞赛-人工智能模型', result: '二等奖', team: '1' },
+  { level: '省级', year: '2026', award: '全国大学生智能汽车竞赛-走马观碑', result: '三等奖', team: '1' },
+  { level: '省级', year: '2026', award: '嵌入式芯片与系统设计竞赛-st赛道', result: '二等奖', team: '1' },
+  { level: '省级', year: '2026', award: '蓝桥杯大赛-单片机', result: '二等奖', team: '2' },
 ]
 
 export const projects = [

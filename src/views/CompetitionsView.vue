@@ -6,7 +6,7 @@ import SectionHeading from '../components/SectionHeading.vue'
 import { competitions } from '../data/siteData'
 
 const trainingFacts = [
-  { icon: CalendarDays, label: '训练周期', value: '每年 3—8 月' },
+  { icon: CalendarDays, label: '比赛周期', value: '每年 3—8 月' },
   { icon: Clock3, label: '集中时段', value: '课后与暑期' },
   { icon: Users, label: '协作形式', value: '3—5 人小组' },
 ]
@@ -120,16 +120,7 @@ function toggleCompetition(index) {
       </div>
     </section>
 
-    <section class="section event-note-section">
-      <div v-reveal class="container event-note">
-        <MapPin :size="28" :stroke-width="1.4" />
-        <div>
-          <span>OPEN LAB DAY</span>
-          <h2>开放日与项目交流</h2>
-          <p>每学期安排实验室开放和项目分享，具体时间将在招新群内发布。</p>
-        </div>
-      </div>
-    </section>
+
   </div>
 </template>
 

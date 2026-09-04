@@ -30,7 +30,7 @@ const advantages = [
   {
     icon: Users,
     index: '02',
-    title: '学长导师全程带着做',
+    title: '学长导师充分指导',
     text: '从基础训练、方案评审到联调复盘，都有高年级成员提供指导，遇到问题有人讨论，也有人帮你把问题拆开。',
   },
   {
@@ -105,7 +105,7 @@ const advantages = [
             <img src="/images/project-nailong.jpg" alt="实验室电路调试设备" />
             <figcaption>
               <span>HARDWARE RESOURCES</span>
-              <strong>设备为实践服务，实践让设备产生价值</strong>
+              <strong>这里应放实验室设备照片，我没有照片，先用吉祥物顶一下</strong>
             </figcaption>
           </figure>
 

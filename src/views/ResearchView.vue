@@ -8,13 +8,14 @@ import {
   RadioTower,
   ScanLine,
   X,
+  FileCode2,
 } from 'lucide-vue-next'
 import { computed, nextTick, ref } from 'vue'
 import PageHero from '../components/PageHero.vue'
 import SectionHeading from '../components/SectionHeading.vue'
 import { directions } from '../data/siteData'
 
-const icons = [Cpu, CircuitBoard, RadioTower, ScanLine, Braces]
+const icons = [Cpu, CircuitBoard, FileCode2]
 const activeDirection = ref(null)
 const selectedDirection = computed(() => directions.find((item) => item.id === activeDirection.value))
 
