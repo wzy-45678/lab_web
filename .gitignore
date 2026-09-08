@@ -13,6 +13,11 @@ dist-ssr
 *.local
 .screenshots
 
+# Large learning materials and source videos stay on this computer only.
+# Upload them to cloud storage or a video platform, then place the share link in siteData.js.
+/local-resources/
+/local-media/
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json

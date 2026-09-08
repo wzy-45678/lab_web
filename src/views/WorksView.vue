@@ -1,4 +1,5 @@
 <script setup>
+import { RouterLink } from 'vue-router'
 import { ArrowUpRight, Box, Gauge, Layers3 } from 'lucide-vue-next'
 import PageHero from '../components/PageHero.vue'
 import SectionHeading from '../components/SectionHeading.vue'
@@ -33,24 +34,32 @@ const process = [
         <div class="project-grid">
           <article
             v-for="(project, index) in projects"
-            :key="project.title"
+            :key="project.id"
             v-reveal="{ delay: (index % 2) * 90 }"
             class="project-card"
           >
-            <div class="project-image">
-              <img :src="project.image" :alt="project.title" />
-              <span>{{ project.category }}</span>
-            </div>
-            <div class="project-body">
-              <div class="project-title-row">
-                <h2>{{ project.title }}</h2>
-                <ArrowUpRight :size="19" />
+            <RouterLink class="project-link" :to="{ name: 'work-detail', params: { id: project.id } }">
+              <div v-if="project.image" class="project-image">
+                <img :src="project.image" :alt="project.title" />
+                <span>{{ project.category }}</span>
               </div>
-              <p>{{ project.description }}</p>
-              <ul class="tag-list">
-                <li v-for="tag in project.tags" :key="tag" class="tag">{{ tag }}</li>
-              </ul>
-            </div>
+              <div v-else class="project-image project-image--empty">
+                <Box :size="28" :stroke-width="1.25" />
+                <span>{{ project.category }}</span>
+                <small>项目封面待补充</small>
+              </div>
+              <div class="project-body">
+                <div class="project-title-row">
+                  <h2>{{ project.title }}</h2>
+                  <ArrowUpRight :size="19" />
+                </div>
+                <p>{{ project.description }}</p>
+                <ul class="tag-list">
+                  <li v-for="tag in project.tags" :key="tag" class="tag">{{ tag }}</li>
+                </ul>
+                <span class="project-open">查看成果详情 <ArrowUpRight :size="15" /></span>
+              </div>
+            </RouterLink>
           </article>
         </div>
       </div>
@@ -97,12 +106,41 @@ const process = [
   overflow: hidden;
 }
 
+.project-link {
+  @include focus-ring;
+  display: block;
+  height: 100%;
+}
+
 .project-image {
   position: relative;
   aspect-ratio: 16 / 9;
   overflow: hidden;
   background: $color-bg-deep;
 }
+
+.project-image--empty {
+  display: grid;
+  place-items: center;
+  align-content: center;
+  gap: 8px;
+  color: $color-text-soft;
+  background:
+    linear-gradient(rgba($color-border, 0.7) 1px, transparent 1px),
+    linear-gradient(90deg, rgba($color-border, 0.7) 1px, transparent 1px),
+    $color-bg-deep;
+  background-size: 30px 30px;
+}
+
+.project-image--empty > span {
+  position: static;
+  margin-top: 3px;
+  color: $color-text;
+  background: transparent;
+  border: 0;
+}
+
+.project-image--empty small { font-size: 11px; }
 
 .project-image::after {
   position: absolute;
@@ -150,6 +188,16 @@ const process = [
 
 .project-title-row h2 { margin-bottom: 0; font-size: 22px; }
 .project-body > p { min-height: 48px; margin: 13px 0 22px; font-size: 13px; }
+
+.project-open {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 22px;
+  color: $color-accent;
+  font-size: 12px;
+  font-weight: 600;
+}
 
 .process-section { background: rgba($color-bg-deep, 0.42); }
 

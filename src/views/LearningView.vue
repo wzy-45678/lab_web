@@ -1,23 +1,28 @@
 <script setup>
+import { computed } from 'vue'
+import { RouterLink } from 'vue-router'
 import {
+  ArrowUpRight,
   BookOpen,
   Braces,
   CircuitBoard,
-  FileCode2,
   FolderOpen,
   GitBranch,
   Cpu,
 } from 'lucide-vue-next'
 import PageHero from '../components/PageHero.vue'
 import SectionHeading from '../components/SectionHeading.vue'
-import { learningTracks } from '../data/siteData'
+import { learningResources, learningTracks } from '../data/siteData'
 
-const resources = [
-  { icon: Braces, type: '编程基础', title: 'C 语言与工程代码规范', count: '0 个主题', status: '正在开发' },
-  { icon: CircuitBoard, type: '硬件基础', title: '电路、焊接与仪器使用', count: '0 个主题', status: '正在开发' },
-  { icon: Cpu, type: '嵌入式', title: 'STM32 外设与调试手册', count: '0 个主题', status: '正在开发' },
-  { icon: GitBranch, type: '工程协作', title: 'Git、文档与项目复盘', count: '0 个主题', status: '正在开发' },
-]
+const resourceIcons = { GitBranch, BookOpen, Braces, CircuitBoard, Cpu }
+const resourceTopicCount = computed(() => learningResources.reduce((total, item) => total + item.topics.length, 0))
+const getResourceIcon = (id) => ({
+  engineering: resourceIcons.GitBranch,
+  ai: resourceIcons.BookOpen,
+  'c-programming': resourceIcons.Braces,
+  'hardware-basics': resourceIcons.CircuitBoard,
+  embedded: resourceIcons.Cpu,
+}[id] || resourceIcons.BookOpen)
 </script>
 
 <template>
@@ -66,26 +71,28 @@ const resources = [
           <SectionHeading
             v-reveal
             eyebrow="RESOURCE INDEX"
-            title="内部学习资料索引"
-            description="开发中。"
+            title="学习资料索引"
+            description="按方向整理入门资料。点击一个方向，沿着学习链条逐步完成主题。"
           />
           <div v-reveal class="resource-status">
             <FolderOpen :size="22" />
-            <span>共 0 个主题</span>
+            <span>共 {{ resourceTopicCount }} 个主题</span>
           </div>
         </div>
 
         <div class="resource-list">
           <article
-            v-for="(item, index) in resources"
-            :key="item.title"
+            v-for="(item, index) in learningResources"
+            :key="item.id"
             v-reveal="{ delay: index * 60 }"
           >
-            <component :is="item.icon" :size="22" :stroke-width="1.45" />
-            <span class="resource-type">{{ item.type }}</span>
-            <strong>{{ item.title }}</strong>
-            <span>{{ item.count }}</span>
-            <span class="resource-state">{{ item.status }}</span>
+            <RouterLink class="resource-link" :to="{ name: 'learning-detail', params: { id: item.id } }">
+              <component :is="getResourceIcon(item.id)" :size="22" :stroke-width="1.45" />
+              <span class="resource-type">{{ item.type }}</span>
+              <strong>{{ item.title }}</strong>
+              <span>{{ item.topics.length }} 个主题</span>
+              <span class="resource-state">查看学习链条 <ArrowUpRight :size="15" /></span>
+            </RouterLink>
           </article>
         </div>
       </div>
@@ -180,25 +187,36 @@ const resources = [
 .resource-list { border-top: 1px solid $color-border; }
 
 .resource-list article {
+  border-bottom: 1px solid $color-border;
+}
+
+.resource-link {
   display: grid;
   grid-template-columns: 32px 90px minmax(240px, 1fr) 100px 100px;
   gap: 16px;
   align-items: center;
   min-height: 78px;
-  border-bottom: 1px solid $color-border;
+  padding-inline: 0;
+  color: inherit;
   font-size: 11px;
   transition: background-color $transition, padding $transition;
 }
 
-.resource-list article:hover {
+.resource-link:hover {
   padding-inline: 10px;
   background: rgba(255, 255, 255, 0.025);
 }
 
-.resource-list svg { color: $color-accent; }
+.resource-link svg { color: $color-accent; }
 .resource-list strong { color: $color-white; font-size: 13px; font-weight: 500; }
 .resource-type { color: $color-accent; }
-.resource-state { color: $color-success; }
+.resource-state {
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 5px;
+  color: $color-success;
+}
 
 .learning-note-section { padding-top: 72px; }
 
@@ -219,18 +237,18 @@ const resources = [
   .track-grid { grid-template-columns: 1fr; }
   .track-card { min-height: 0; }
   .track-meta { margin-bottom: 38px; }
-  .resource-list article { grid-template-columns: 32px 80px 1fr 90px; }
+  .resource-link { grid-template-columns: 32px 80px 1fr 90px; }
   .resource-state { grid-column: 3; }
 }
 
 @media (max-width: 720px) {
   .resource-heading { flex-direction: column; }
   .resource-status { margin: -14px 0 24px; }
-  .resource-list article { grid-template-columns: 26px 1fr auto; gap: 7px 12px; padding-block: 18px; }
-  .resource-list article:hover { padding-inline: 0; }
+  .resource-link { grid-template-columns: 26px 1fr auto; gap: 7px 12px; padding-block: 18px; }
+  .resource-link:hover { padding-inline: 0; }
   .resource-type { grid-column: 2; }
   .resource-list strong { grid-column: 2 / -1; }
-  .resource-list article > span:nth-last-child(2) { grid-column: 2; }
+  .resource-link > span:nth-last-child(2) { grid-column: 2; }
   .resource-state { grid-column: 3; }
   .learning-note { align-items: flex-start; }
 }

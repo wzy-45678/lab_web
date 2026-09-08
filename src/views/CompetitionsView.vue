@@ -1,6 +1,6 @@
 <script setup>
 import { ref } from 'vue'
-import { CalendarDays, CheckCircle2, ChevronDown, Clock3, MapPin, Users } from 'lucide-vue-next'
+import { CalendarDays, CheckCircle2, ChevronDown, Clock3, ExternalLink, MapPin, Users } from 'lucide-vue-next'
 import PageHero from '../components/PageHero.vue'
 import SectionHeading from '../components/SectionHeading.vue'
 import { competitions } from '../data/siteData'
@@ -76,6 +76,13 @@ function toggleCompetition(index) {
                     <div>
                       <span>参赛价值</span>
                       <p>{{ item.value }}</p>
+                    </div>
+                    <div v-if="item.address">
+                      <span>官方链接</span>
+                      <a class="competition-link" :href="item.address" target="_blank" rel="noopener noreferrer">
+                        <span>{{ item.address }}</span>
+                        <ExternalLink :size="14" :stroke-width="1.6" aria-hidden="true" />
+                      </a>
                     </div>
                   </div>
                 </div>
@@ -252,6 +259,28 @@ function toggleCompetition(index) {
   font-size: 13px;
   line-height: 1.85;
 }
+
+.competition-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  max-width: 100%;
+  color: $color-text;
+  font-family: $font-mono;
+  font-size: 14px;
+  line-height: 1.7;
+  overflow-wrap: anywhere;
+  transition: color $transition;
+}
+
+.competition-link:hover { color: $color-white; }
+.competition-link:focus-visible { outline: 2px solid $color-accent; outline-offset: 3px; }
+.competition-link > span {
+  margin-bottom: 0;
+  color: inherit;
+  font: inherit;
+}
+.competition-link svg { flex: none; color: $color-accent; }
 
 .training-section { background: rgba($color-bg-deep, 0.42); }
 

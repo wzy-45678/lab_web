@@ -38,10 +38,22 @@ const routes = [
     meta: { title: '作品展示' },
   },
   {
+    path: '/works/:id',
+    name: 'work-detail',
+    component: () => import('../views/WorkDetailView.vue'),
+    meta: { title: '成果详情' },
+  },
+  {
     path: '/learning',
     name: 'learning',
     component: () => import('../views/LearningView.vue'),
     meta: { title: '技术学习' },
+  },
+  {
+    path: '/learning/:id',
+    name: 'learning-detail',
+    component: () => import('../views/LearningDetailView.vue'),
+    meta: { title: '学习资料' },
   },
   {
     path: '/join',

@@ -6,20 +6,25 @@ import SectionHeading from '../components/SectionHeading.vue'
 import { honors } from '../data/siteData'
 
 const stats = [
-  { value: '05', label: '国家级奖项', icon: Trophy },
-  { value: '07', label: '省级奖项', icon: Medal },
+  { value: '07', label: '国家级奖项', icon: Trophy },
+  { value: '10', label: '省级奖项', icon: Medal },
   { value: '未知', label: '项目完成结题', icon: ShieldCheck },
 ]
 
 // 相册照片列表：将来替换为实验室奖状、比赛现场等真实照片时，只需修改这里。
 const gallery = [
+  { src: '/images/chncs.jpg', title: '车赛走马观碑国二', category: '竞赛成果' },
+  { src: '/images/lhhzzhgnqs.png', title: '嵌赛st赛道国三', category: '竞赛成果' },
+  { src: '/images/chnlq.jpg', title: '蓝桥杯嵌入式组国一', category: '竞赛成果' },
   { src: '/images/wzylq.jpg', title: '蓝桥杯单片机组国二', category: '竞赛成果' },
-  { src: '/images/pdclq.jpg', title: '蓝桥杯单片机组省一', category: '竞赛成果' },
+  { src: '/images/pdclq.jpg', title: '蓝桥杯单片机组国二', category: '竞赛成果' },
   { src: '/images/wzyzxlhfqs.jpg', title: '嵌赛st赛道省二', category: '竞赛成果' },
+  { src: '/images/chnjqr25.jpg', title: '安徽省机器人B平台省二', category: '竞赛成果' },
+  { src: '/images/scsysbsb.jpg', title: '毕昇杯国二', category: '竞赛成果' },
+  { src: '/images/lzgqsproc.jpg', title: '嵌赛st赛道竞赛展示', category: '竞赛过程' },
   { src: '/images/hyds.jpeg', title: '电赛合影', category: '竞赛合影' },
   { src: '/images/hzdhycs.jpeg', title: '和卓大合影', category: '竞赛合影' },
   { src: '/images/hycs.jpeg', title: '车赛合影', category: '竞赛合影' },
-
 ]
 
 const activePhoto = ref(0)
