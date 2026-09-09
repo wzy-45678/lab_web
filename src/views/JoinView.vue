@@ -13,7 +13,7 @@ import SectionHeading from '../components/SectionHeading.vue'
 
 const submitted = ref(false)
 const qrCodeAvailable = ref(false)
-const qrCodeSrc = '/images/join-qr.png'
+const qrCodeSrc = '/images/ewm.png'
 
 const requirements = [
   '以持之以恒、笃学深耕为荣，以好高骛远、急功近利为耻',
@@ -148,7 +148,7 @@ function handleSubmit() {
             </div>
             <div>
               <span>2026 招新交流群</span>
-              <strong>群号待公布</strong>
+              <strong>群号:1097332347</strong>
               <small>请使用手机扫码加入</small>
             </div>
           </div>
@@ -329,7 +329,7 @@ function handleSubmit() {
 .group-channel {
   display: flex;
   align-items: center;
-  gap: 18px;
+  gap: 24px;
   margin-top: 36px;
   padding-top: 28px;
   border-top: 1px solid $color-border;
@@ -339,8 +339,8 @@ function handleSubmit() {
   display: grid;
   flex: none;
   place-items: center;
-  width: 104px;
-  height: 104px;
+  width: 160px;
+  height: 160px;
   overflow: hidden;
   color: $color-accent;
   background: #f0f2f5;
@@ -351,7 +351,7 @@ function handleSubmit() {
   display: block;
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
 }
 
 .group-channel span,
@@ -426,6 +426,7 @@ function handleSubmit() {
   .process-group { grid-template-columns: 70px 1fr; }
   .field-row { grid-template-columns: 1fr; }
   .application-form { padding: 22px; }
-  .group-channel { align-items: flex-start; }
+  .group-channel { align-items: flex-start; gap: 16px; }
+  .qr-placeholder { width: 140px; height: 140px; }
 }
 </style>
