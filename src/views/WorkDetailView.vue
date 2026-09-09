@@ -15,6 +15,11 @@ const videoList = computed(() => {
 })
 const activeVideoIndex = ref(0)
 const activeVideo = computed(() => videoList.value[activeVideoIndex.value] || null)
+const activeVideoBvid = computed(() => getBilibiliVideoId(activeVideo.value?.src))
+const activeVideoEmbedUrl = computed(() => {
+  if (!activeVideoBvid.value) return ''
+  return `https://player.bilibili.com/player.html?bvid=${encodeURIComponent(activeVideoBvid.value)}&page=1&high_quality=1&danmaku=0`
+})
 const activePhotoIndex = ref(null)
 const activePhoto = computed(() => {
   if (activePhotoIndex.value === null) return null
@@ -43,6 +48,17 @@ function showNextPhoto() {
 
 function selectVideo(index) {
   activeVideoIndex.value = index
+}
+
+function getBilibiliVideoId(source) {
+  if (!source || typeof source !== 'string') return ''
+  try {
+    const url = new URL(source)
+    const match = url.pathname.match(/\/video\/(BV[\w]+)/i)
+    return match ? match[1] : ''
+  } catch {
+    return ''
+  }
 }
 
 function handlePhotoKeydown(event) {
@@ -145,8 +161,30 @@ onUnmounted(() => window.removeEventListener('keydown', handlePhotoKeydown))
             <div class="video-heading">
               <span>{{ String(activeVideoIndex + 1).padStart(2, '0') }}</span>
               <strong>{{ activeVideo.label || `项目视频 ${activeVideoIndex + 1}` }}</strong>
+              <a
+                v-if="activeVideoEmbedUrl"
+                class="video-external-link"
+                :href="activeVideo.src"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                在 B 站打开
+                <ArrowUpRight :size="14" />
+              </a>
             </div>
+            <iframe
+              v-if="activeVideoEmbedUrl"
+              :key="activeVideoEmbedUrl"
+              class="video-embed"
+              :src="activeVideoEmbedUrl"
+              :title="activeVideo.label || 'B站项目视频'"
+              loading="lazy"
+              allow="fullscreen; autoplay; encrypted-media; picture-in-picture"
+              allowfullscreen
+              referrerpolicy="strict-origin-when-cross-origin"
+            ></iframe>
             <video
+              v-else
               :key="activeVideo.src"
               :src="activeVideo.src"
               :poster="activeVideo.poster || undefined"
@@ -391,10 +429,32 @@ onUnmounted(() => window.removeEventListener('keydown', handlePhotoKeydown))
 .video-heading span { color: $color-accent; font-family: $font-mono; font-size: 10px; }
 .video-heading strong { color: $color-white; font-size: 13px; font-weight: 500; }
 
+.video-external-link {
+  @include focus-ring;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  margin-left: auto;
+  color: $color-text-soft;
+  font-size: 11px;
+  transition: color $transition;
+}
+
+.video-external-link:hover { color: $color-white; }
+
 .video-panel video {
   display: block;
   width: 100%;
   max-height: 680px;
+  background: #080a0e;
+}
+
+.video-embed {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  min-height: 420px;
+  border: 0;
   background: #080a0e;
 }
 
@@ -563,6 +623,7 @@ onUnmounted(() => window.removeEventListener('keydown', handlePhotoKeydown))
   .back-link { margin-bottom: 34px; }
   .detail-gallery { grid-template-columns: 1fr; }
   .media-empty { min-height: 240px; }
+  .video-embed { min-height: 240px; }
   .cta-panel { align-items: flex-start; flex-direction: column; padding: 28px 24px; }
   .project-lightbox { gap: 8px; padding: 64px 14px 30px; }
   .lightbox-nav { width: 34px; height: 42px; }
