@@ -264,6 +264,7 @@ export const learningResources = [
         note: '学会使用AI辅助编程和学习，效率提升不止一点。',
         links: [
           { label: 'codex与claude的安装', url: 'https://www.bilibili.com/video/BV1u5ddB2EkW?vd_source=04b20f46ef82374a16e887c11c4ff0b9' },
+          { label: 'codex与claude的安装', url: 'https://lab-web-1484557677.cos.ap-nanjing.myqcloud.com/lab_source/cc-switch.zip', download: true },
         ],
       },
     ],
