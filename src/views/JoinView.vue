@@ -12,6 +12,8 @@ import PageHero from '../components/PageHero.vue'
 import SectionHeading from '../components/SectionHeading.vue'
 
 const submitted = ref(false)
+const qrCodeAvailable = ref(false)
+const qrCodeSrc = '/images/join-qr.png'
 
 const requirements = [
   '以持之以恒、笃学深耕为荣，以好高骛远、急功近利为耻',
@@ -135,12 +137,19 @@ function handleSubmit() {
 
           <div class="group-channel">
             <div class="qr-placeholder" aria-label="招新群二维码占位区域">
-              <QrCode :size="58" :stroke-width="1.2" />
+              <img
+                v-show="qrCodeAvailable"
+                :src="qrCodeSrc"
+                alt="2026 招新交流群二维码"
+                @load="qrCodeAvailable = true"
+                @error="qrCodeAvailable = false"
+              />
+              <QrCode v-if="!qrCodeAvailable" :size="58" :stroke-width="1.2" />
             </div>
             <div>
               <span>2026 招新交流群</span>
               <strong>群号待公布</strong>
-              <small>正式上线前替换二维码与群号</small>
+              <small>请使用手机扫码加入</small>
             </div>
           </div>
         </div>
@@ -332,9 +341,17 @@ function handleSubmit() {
   place-items: center;
   width: 104px;
   height: 104px;
+  overflow: hidden;
   color: $color-accent;
   background: #f0f2f5;
   border-radius: $radius-sm;
+}
+
+.qr-placeholder img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .group-channel span,
