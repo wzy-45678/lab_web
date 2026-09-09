@@ -1,3 +1,5 @@
+import { Download } from "lucide-vue-next"
+
 export const navItems = [
   { label: '首页', to: '/' },
   { label: '实验室简介', to: '/about' },
@@ -191,7 +193,7 @@ export const projects = [
       '了解一个智能硬件项目从功能设计到演示落地的基本流程。',
     ],
     // 视频文件超过 GitHub 与 Cloudflare Pages 的静态文件限制，上传到视频平台后再填入外链。
-    video: { src: 'https://www.bilibili.com/video/BV1WjNz6YEMF?vd_source=04b20f46ef82374a16e887c11c4ff0b9', poster: '/images/qsfm.jpg', label: '项目演示视频' },
+    video: { src: 'https://lab-web-1484557677.cos.ap-nanjing.myqcloud.com/lab_source/wzyzxlhfqs.mp4', poster: '/images/qsfm.jpg', label: '项目演示视频' },
     gallery: [
       { src: '/images/wzyzxlhfqs.jpg', alt: '项目成果照片', caption: '获奖证书' },
       { src: '/images/qszs2.jpg', alt: '项目成果照片', caption: '作品展示1' },
@@ -340,8 +342,8 @@ export const learningResources = [
         note: '使用视频配套开发板与 Keil 工具链，编译或烧录报错时可借助 AI 分析。',
         links: [
           { label: '51单片机教程', url: 'https://www.bilibili.com/video/BV1Mb411e7re?vd_source=04b20f46ef82374a16e887c11c4ff0b9l' },
-          // 上传到网盘后填写：{ label: '51 单片机参考手册', url: 'https://你的网盘分享链接' },
-          // 上传到网盘后填写：{ label: '51 单片机编程环境与教程资料', url: 'https://你的网盘分享链接' },
+          { label: '51 单片机参考手册', url: '/resources/STC89Cxx中文参考手册.pdf', download: true },
+          { label: '51 单片机编程环境与教程资料', url: 'https://lab-web-1484557677.cos.ap-nanjing.myqcloud.com/lab_source/51%E5%8D%95%E7%89%87%E6%9C%BA%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B%E8%B5%84%E6%96%99.zip', download: true },
         ],
       },
       {
@@ -351,8 +353,8 @@ export const learningResources = [
         links: [
           { label: 'STM32 教程-江协', url: 'https://www.bilibili.com/video/BV1th411z7sn?vd_source=04b20f46ef82374a16e887c11c4ff0b9' },
           { label: 'STM32 教程-铁头山羊', url: 'https://www.bilibili.com/video/BV11X4y1j7si?p=2&vd_source=04b20f46ef82374a16e887c11c4ff0b9' },
-          // 上传到网盘后填写：{ label: 'STM32 芯片手册', url: 'https://你的网盘分享链接' },
-          // 上传到网盘后填写：{ label: 'STM32 编程环境与教程资料', url: 'https://你的网盘分享链接' },
+          { label: 'STM32 芯片手册', url: '/resources/STM32F10xxx参考手册（中文）.pdf', download: true },
+          { label: 'STM32 编程环境与教程资料', url: 'https://lab-web-1484557677.cos.ap-nanjing.myqcloud.com/lab_source/stm32%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8B%E8%B5%84%E6%96%99.zip', download: true },
         ],
       },
       {
