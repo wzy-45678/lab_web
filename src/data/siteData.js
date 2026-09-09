@@ -281,7 +281,7 @@ export const learningResources = [
         links: [
           { label: '翁恺教你 C 语言', url: 'https://www.bilibili.com/video/BV1dr4y1n7vA?vd_source=04b20f46ef82374a16e887c11c4ff0b9' },
           { label: '菜鸟 C 语言教程', url: 'https://www.runoob.com/cprogramming/c-tutorial.html' },
-          { label: 'Dev-C++ 安装包', url: 'https://lab-web-1484557677.cos.ap-nanjing.myqcloud.com/lab_source/Dev-Cpp_5.11_TDM-GCC_4.9.2_Setup.zip, download: true' },
+          { label: 'Dev-C++ 安装包', url: 'https://lab-web-1484557677.cos.ap-nanjing.myqcloud.com/lab_source/Dev-Cpp_5.11_TDM-GCC_4.9.2_Setup.zip', download: true},
         ],
       },
     ],
