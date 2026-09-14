@@ -72,7 +72,7 @@ onUnmounted(() => window.removeEventListener('keydown', handleGalleryKeydown))
       eyebrow="LAB HONORS"
       title="实验室荣誉"
       description="荣誉记录的是一次结果，更重要的是它背后完整的训练、协作和工程积累。"
-      image="/images/project-chip.jpg"
+      image="/images/lab-board.jpg"
     />
 
     <section class="section stats-section">

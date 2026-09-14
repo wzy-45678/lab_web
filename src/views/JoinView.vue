@@ -339,8 +339,8 @@ function handleSubmit() {
   display: grid;
   flex: none;
   place-items: center;
-  width: 160px;
-  height: 160px;
+  width: 200px;
+  height: 185px;
   overflow: hidden;
   color: $color-accent;
   background: #f0f2f5;

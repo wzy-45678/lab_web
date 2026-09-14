@@ -3,13 +3,18 @@ import {
   ArrowRight,
   Award,
   Box,
+  ChevronLeft,
+  ChevronRight,
   CircuitBoard,
   Cpu,
+  Maximize2,
   MapPin,
   Trophy,
   Users,
   Wrench,
+  X,
 } from 'lucide-vue-next'
+import { computed, ref } from 'vue'
 import PageHero from '../components/PageHero.vue'
 import SectionHeading from '../components/SectionHeading.vue'
 
@@ -46,6 +51,37 @@ const advantages = [
     text: '从常用仪器、单片机外设到项目资料和代码仓库，尽量把实践所需的条件准备在身边。',
   },
 ]
+
+const hardwarePhotos = [
+  { src: '/images/ht.jpg', alt: '焊台', caption: '实验室焊台' },
+  { src: '/images/fsqsbq.jpg', alt: '示波器与发生器', caption: '示波器与信号发生器' },
+  { src: '/images/dyj.jpg', alt: '3D打印机', caption: '3D打印机' },
+  { src: '/images/jcgj.jpg', alt: '工具与材料', caption: '基础工具和材料' },
+]
+
+const activeHardwarePhotoIndex = ref(null)
+const activeHardwarePhoto = computed(() => {
+  if (activeHardwarePhotoIndex.value === null) return null
+  return hardwarePhotos[activeHardwarePhotoIndex.value]
+})
+
+function openHardwarePhoto(index) {
+  activeHardwarePhotoIndex.value = index
+}
+
+function closeHardwarePhoto() {
+  activeHardwarePhotoIndex.value = null
+}
+
+function showPreviousHardwarePhoto() {
+  if (activeHardwarePhotoIndex.value === null) return
+  activeHardwarePhotoIndex.value = (activeHardwarePhotoIndex.value - 1 + hardwarePhotos.length) % hardwarePhotos.length
+}
+
+function showNextHardwarePhoto() {
+  if (activeHardwarePhotoIndex.value === null) return
+  activeHardwarePhotoIndex.value = (activeHardwarePhotoIndex.value + 1) % hardwarePhotos.length
+}
 </script>
 
 <template>
@@ -101,13 +137,31 @@ const advantages = [
         </div>
 
         <div class="hardware-block">
-          <figure v-reveal class="hardware-photo">
-            <img src="/images/project-nailong.jpg" alt="实验室电路调试设备" />
-            <figcaption>
-              <span>HARDWARE RESOURCES</span>
-              <strong>这里应放实验室设备照片，我没有照片，先用吉祥物顶一下</strong>
-            </figcaption>
-          </figure>
+          <div v-reveal class="hardware-gallery">
+            <div class="hardware-gallery-heading">
+              <div>
+                <span>HARDWARE RESOURCES</span>
+                <strong>实验室设备图集</strong>
+              </div>
+              <small>点击图片查看大图</small>
+            </div>
+            <div class="hardware-gallery-grid">
+              <button
+                v-for="(photo, index) in hardwarePhotos"
+                :key="photo.src"
+                class="hardware-photo-card"
+                type="button"
+                :aria-label="`放大查看${photo.alt}`"
+                @click="openHardwarePhoto(index)"
+              >
+                <img :src="photo.src" :alt="photo.alt" />
+                <span class="hardware-photo-overlay">
+                  <Maximize2 :size="17" />
+                </span>
+                <span class="hardware-photo-caption">{{ photo.caption }}</span>
+              </button>
+            </div>
+          </div>
 
           <div v-reveal="{ delay: 100 }" class="hardware-copy">
             <span class="eyebrow">FROM BENCH TO PROTOTYPE</span>
@@ -178,6 +232,47 @@ const advantages = [
         </div>
       </div>
     </section>
+
+    <Teleport to="body">
+      <div
+        v-if="activeHardwarePhoto"
+        class="hardware-lightbox"
+        role="dialog"
+        aria-modal="true"
+        aria-label="实验室设备图片预览"
+        @click.self="closeHardwarePhoto"
+      >
+        <button class="hardware-lightbox-close" type="button" aria-label="关闭大图" @click="closeHardwarePhoto">
+          <X :size="20" />
+        </button>
+        <button
+          class="hardware-lightbox-nav hardware-lightbox-nav--previous"
+          type="button"
+          aria-label="上一张"
+          @click="showPreviousHardwarePhoto"
+        >
+          <ChevronLeft :size="24" />
+        </button>
+        <figure class="hardware-lightbox-figure">
+          <img :src="activeHardwarePhoto.src" :alt="activeHardwarePhoto.alt" />
+          <figcaption>
+            <span>{{ activeHardwarePhoto.caption }}</span>
+            <small>
+              {{ String(activeHardwarePhotoIndex + 1).padStart(2, '0') }} /
+              {{ String(hardwarePhotos.length).padStart(2, '0') }}
+            </small>
+          </figcaption>
+        </figure>
+        <button
+          class="hardware-lightbox-nav hardware-lightbox-nav--next"
+          type="button"
+          aria-label="下一张"
+          @click="showNextHardwarePhoto"
+        >
+          <ChevronRight :size="24" />
+        </button>
+      </div>
+    </Teleport>
   </div>
 </template>
 
@@ -252,41 +347,159 @@ const advantages = [
   border-top: 1px solid $color-border;
 }
 
-.hardware-photo {
-  position: relative;
-  min-height: 430px;
-  margin: 0;
-  overflow: hidden;
-  border: 1px solid $color-border;
-  border-radius: $radius-md;
+.hardware-gallery {
+  min-width: 0;
 }
 
-.hardware-photo img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  filter: saturate(0.65) brightness(0.72);
+.hardware-gallery-heading {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 20px;
+  margin-bottom: 14px;
 }
 
-.hardware-photo::after {
-  position: absolute;
-  inset: 0;
-  content: '';
-  background: linear-gradient(transparent 48%, rgba(8, 10, 14, 0.9));
-}
-
-.hardware-photo figcaption {
-  position: absolute;
-  z-index: 1;
-  right: 24px;
-  bottom: 23px;
-  left: 24px;
+.hardware-gallery-heading > div {
   display: grid;
   gap: 6px;
 }
 
-.hardware-photo figcaption span { color: $color-accent; font-family: $font-mono; font-size: 10px; }
-.hardware-photo figcaption strong { color: $color-white; font-size: 15px; font-weight: 500; }
+.hardware-gallery-heading span { color: $color-accent; font-family: $font-mono; font-size: 10px; }
+.hardware-gallery-heading strong { color: $color-white; font-size: 17px; font-weight: 500; }
+.hardware-gallery-heading small { color: $color-text-soft; font-size: 11px; }
+
+.hardware-gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.hardware-photo-card {
+  @include focus-ring;
+  position: relative;
+  display: block;
+  min-width: 0;
+  aspect-ratio: 4 / 3;
+  padding: 0;
+  overflow: hidden;
+  color: inherit;
+  background: $color-surface;
+  border: 1px solid $color-border;
+  border-radius: $radius-md;
+  cursor: zoom-in;
+  text-align: left;
+  transition: border-color $transition, transform $transition, box-shadow $transition;
+}
+
+.hardware-photo-card:hover {
+  border-color: $color-border-strong;
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.2);
+  transform: translateY(-3px);
+}
+
+.hardware-photo-card img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: saturate(0.78) brightness(0.78);
+  transition: transform 0.45s ease, filter $transition;
+}
+
+.hardware-photo-card:hover img { filter: saturate(0.9) brightness(0.9); transform: scale(1.035); }
+
+.hardware-photo-card::after {
+  position: absolute;
+  inset: 0;
+  content: '';
+  pointer-events: none;
+  background: linear-gradient(transparent 45%, rgba(8, 10, 14, 0.84));
+}
+
+.hardware-photo-overlay {
+  position: absolute;
+  z-index: 1;
+  top: 12px;
+  right: 12px;
+  display: grid;
+  width: 32px;
+  height: 32px;
+  place-items: center;
+  color: $color-white;
+  background: rgba(10, 12, 17, 0.66);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: $radius-sm;
+}
+
+.hardware-photo-caption {
+  position: absolute;
+  z-index: 1;
+  right: 14px;
+  bottom: 13px;
+  left: 14px;
+  color: $color-white;
+  font-size: 12px;
+}
+
+.hardware-lightbox {
+  position: fixed;
+  z-index: 100;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  padding: 48px 72px;
+  background: rgba(6, 8, 12, 0.94);
+}
+
+.hardware-lightbox-close,
+.hardware-lightbox-nav {
+  @include focus-ring;
+  display: grid;
+  place-items: center;
+  flex: 0 0 auto;
+  color: $color-white;
+  background: rgba(10, 12, 17, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: $radius-sm;
+  cursor: pointer;
+  transition: background-color $transition, border-color $transition;
+}
+
+.hardware-lightbox-close { position: absolute; top: 22px; right: 24px; width: 40px; height: 40px; }
+.hardware-lightbox-nav { width: 42px; height: 48px; }
+.hardware-lightbox-close:hover,
+.hardware-lightbox-nav:hover { background: rgba($color-accent, 0.9); border-color: $color-accent; }
+
+.hardware-lightbox-figure {
+  display: grid;
+  gap: 14px;
+  max-width: min(100%, 1120px);
+  max-height: 100%;
+  margin: 0;
+}
+
+.hardware-lightbox-figure img {
+  display: block;
+  width: auto;
+  max-width: 100%;
+  max-height: calc(100vh - 150px);
+  object-fit: contain;
+  border: 1px solid $color-border-strong;
+  border-radius: $radius-sm;
+}
+
+.hardware-lightbox-figure figcaption {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  color: $color-white;
+  font-size: 13px;
+}
+
+.hardware-lightbox-figure small { color: $color-text-soft; font-family: $font-mono; font-size: 10px; }
+
 .hardware-copy > h2 { margin-bottom: 15px; }
 .hardware-copy > p { max-width: 520px; font-size: 13px; }
 
