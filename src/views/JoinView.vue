@@ -59,7 +59,7 @@ function handleSubmit() {
       eyebrow="JOIN THE LAB"
       title="加入我们"
       description="欢迎电子信息、自动化、计算机及相关工科专业的同学，从兴趣出发，在持续实践中建立能力。"
-      image="/images/lab-workbench.jpg"
+      image="/images/lab-show2.jpg"
     />
 
     <section class="section">

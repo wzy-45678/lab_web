@@ -57,6 +57,8 @@ const hardwarePhotos = [
   { src: '/images/fsqsbq.jpg', alt: '示波器与发生器', caption: '示波器与信号发生器' },
   { src: '/images/dyj.jpg', alt: '3D打印机', caption: '3D打印机' },
   { src: '/images/jcgj.jpg', alt: '工具与材料', caption: '基础工具和材料' },
+  { src: '/images/sysgw1.jpg', alt: '工位', caption: '实验室工位' },
+  { src: '/images/sysgw2.jpg', alt: '工位', caption: '实验室工位' },
 ]
 
 const activeHardwarePhotoIndex = ref(null)
@@ -91,7 +93,7 @@ function showNextHardwarePhoto() {
       eyebrow="ABOUT THE LAB"
       title="实验室简介"
       description="以学科竞赛为牵引，在真实项目中学习工程方法，在持续协作中把想法做成可以运行的作品。"
-      image="/images/lab-workbench.jpg"
+      image="/images/lab-show1.jpg"
     />
 
     <section class="section about-section">

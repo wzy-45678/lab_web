@@ -153,7 +153,7 @@ export const honors = [
 export const projects = [
   {
     id: 'project-01',
-    title: '车赛-走马观碑',
+    title: '21届全国大学生智能汽车竞赛-走马观碑',
     category: '项目展示',
     image: '/images/chncszs.jpg',
     description: '26车赛-走马观碑',

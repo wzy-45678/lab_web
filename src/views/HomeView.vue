@@ -12,6 +12,53 @@ import SectionHeading from '../components/SectionHeading.vue'
 
 const titleChars = [...'创新创业实验室']
 
+// 首屏横向流动图集：替换图片时，只需要修改这里的 src 和 label。
+// 图片统一放在 public/images/，路径以 /images/ 开头即可。
+const heroGalleryPhotos = [
+  { src: '/images/lab-circuit.jpg' },
+  { src: '/images/lhhzzhgnqs.png' },
+  { src: '/images/lab-workbench.jpg' },
+  { src: '/images/chncs.jpg' },  
+  { src: '/images/lab-show1.jpg'},
+  { src: '/images/learning-code.jpg'},
+  { src: '/images/chnjqr25.jpg'},
+  { src: '/images/qs2.jpeg'},
+  { src: '/images/project-chip.jpg'},
+  { src: '/images/fsqsbq.jpg' },
+  { src: '/images/lab-board.jpg'},
+  { src: '/images/qsfm.jpg'},
+  { src: '/images/pcb2.png'},
+  { src: '/images/qszs4.jpg'},
+  { src: '/images/qs1.jpeg'},
+  { src: '/images/ht.jpg'},
+  { src: '/images/pcb3.png'},
+  { src: '/images/dsxc.jpg'},
+  { src: '/images/qszs3.jpg'},
+  { src: '/images/nailong.jpg'},
+  { src: '/images/nailongpcb.png'},
+]
+
+const rotateGalleryPhotos = (start) => [
+  ...heroGalleryPhotos.slice(start),
+  ...heroGalleryPhotos.slice(0, start),
+]
+
+// 每一行复制一份图片，让 CSS 在移动到一半时无缝衔接。
+const heroGalleryRows = [
+  { direction: 'to-left', duration: '42s', photos: heroGalleryPhotos },
+  { direction: 'to-right', duration: '48s', photos: rotateGalleryPhotos(2) },
+  { direction: 'to-left', duration: '52s', photos: rotateGalleryPhotos(4) },
+  { direction: 'to-right', duration: '45s', photos: rotateGalleryPhotos(1) },
+]
+
+// 招新视频：填写腾讯云 COS 对象的公开访问地址即可，视频文件不需要放进 Git。
+// 例：src: 'https://你的存储桶.cos.ap-shanghai.myqcloud.com/videos/recruitment.mp4'
+const recruitmentVideo = {
+  src: 'https://lab-web-1484557677.cos.ap-nanjing.myqcloud.com/lab_source/xcsp.mp4',
+  title: '实验室招新视频',
+  description: '用一段视频了解实验室的工作环境、项目实践和团队日常。',
+}
+
 const advantages = [
   {
     icon: BookOpenCheck,
@@ -37,7 +84,39 @@ const advantages = [
 <template>
   <div class="home-page">
     <section class="home-hero">
+      <div class="hero-gallery" aria-hidden="true">
+        <div
+          v-for="(row, rowIndex) in heroGalleryRows"
+          :key="`hero-row-${rowIndex}`"
+          class="hero-gallery-lane"
+        >
+          <div
+            class="hero-gallery-track"
+            :class="`hero-gallery-track--${row.direction}`"
+            :style="{ '--marquee-duration': row.duration }"
+          >
+            <div
+              v-for="groupIndex in 2"
+              :key="`${rowIndex}-group-${groupIndex}`"
+              class="hero-gallery-group"
+            >
+              <figure
+                v-for="(photo, photoIndex) in row.photos"
+                :key="`${rowIndex}-${groupIndex}-${photoIndex}-${photo.src}`"
+                class="hero-gallery-card"
+              >
+                <img :src="photo.src" alt="" />
+                <figcaption>
+                  <span>{{ String(photoIndex + 1).padStart(2, '0') }}</span>
+                  <strong>{{ photo.label }}</strong>
+                </figcaption>
+              </figure>
+            </div>
+          </div>
+        </div>
+      </div>
       <div class="hero-overlay" />
+      <div class="hero-vignette" />
       <div class="container hero-content">
         <span class="hero-eyebrow">INNOVATION AND ENTREPRENEURSHIP LAB</span>
         <h1 class="hero-title" aria-label="创新创业实验室">
@@ -77,30 +156,33 @@ const advantages = [
           description="从电路焊接、嵌入式调试到整机联调，实验室提供长期开放的实践空间与基础设备。"
         />
 
-        <div class="environment-grid">
-          <figure v-reveal class="environment-image environment-image--primary">
-            <img src="/images/lab-workbench.jpg" alt="工程师在电子设备上进行电路调试" />
-            <figcaption>
-              <span>01 / WORKBENCH</span>
-              <strong>硬件开发与联合调试工位</strong>
-            </figcaption>
-          </figure>
-
-          <div class="environment-side">
-            <figure v-reveal="{ delay: 100 }" class="environment-image environment-image--secondary">
-              <img src="/images/lab-circuit.jpg" alt="电子电路板及芯片特写" />
-              <figcaption>
-                <span>02 / HARDWARE</span>
-                <strong>从原理图到稳定运行</strong>
-              </figcaption>
-            </figure>
-
-            <div v-reveal="{ delay: 160 }" class="environment-note">
-              <CircuitBoard :size="28" :stroke-width="1.4" />
-              <p>实验设备、真实任务与技术传承，共同构成持续成长的工程环境。</p>
+        <article v-reveal class="recruitment-video">
+          <div class="recruitment-video-heading">
+            <div>
+              <span class="eyebrow">RECRUITMENT VIDEO</span>
+              <h3>{{ recruitmentVideo.title }}</h3>
+              <p>{{ recruitmentVideo.description }}</p>
+            </div>
+            <span class="recruitment-video-status">VIDEO / 01</span>
+          </div>
+          <div class="recruitment-video-player">
+            <video
+              v-if="recruitmentVideo.src"
+              :src="recruitmentVideo.src"
+              :poster="recruitmentVideo.poster"
+              controls
+              preload="metadata"
+              playsinline
+            >
+              你的浏览器不支持视频播放，请更换浏览器后重试。
+            </video>
+            <div v-else class="recruitment-video-empty">
+              <strong>招新视频待上传</strong>
+              <span>将腾讯云 COS 的视频公开地址填入 recruitmentVideo.src</span>
             </div>
           </div>
-        </div>
+        </article>
+
 
         <div v-reveal class="lab-about-link">
           <RouterLink class="button button--secondary" to="/about">
@@ -164,21 +246,124 @@ const advantages = [
   min-height: 82svh;
   align-items: center;
   overflow: hidden;
-  background: $color-bg-deep url('/images/lab-circuit.jpg') center / cover no-repeat;
+  isolation: isolate;
+  background: $color-bg-deep;
   border-bottom: 1px solid $color-border;
+}
+
+.hero-gallery {
+  position: absolute;
+  z-index: -2;
+  inset: -7% -8%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 16px;
+  transform: scale(1.08);
+  opacity: 0.96;
+}
+
+.hero-gallery-lane {
+  width: 100%;
+  overflow: hidden;
+}
+
+.hero-gallery-track {
+  display: flex;
+  width: max-content;
+  will-change: transform;
+}
+
+.hero-gallery-group {
+  display: flex;
+  flex: none;
+  gap: 16px;
+  padding-right: 16px;
+}
+
+.hero-gallery-track--to-left {
+  animation: hero-marquee-left var(--marquee-duration) linear infinite;
+}
+
+.hero-gallery-track--to-right {
+  animation: hero-marquee-right var(--marquee-duration) linear infinite;
+}
+
+.hero-gallery-card {
+  position: relative;
+  flex: 0 0 clamp(210px, 23vw, 340px);
+  height: clamp(126px, 15vw, 220px);
+  margin: 0;
+  overflow: hidden;
+  background: $color-surface;
+  border: 1px solid rgba($color-accent, 0.34);
+  border-radius: 12px;
+  box-shadow: 0 16px 36px rgba(3, 6, 12, 0.3), 0 0 0 1px rgba(255, 255, 255, 0.035);
+}
+
+.hero-gallery-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: saturate(0.8) brightness(0.5) contrast(1.0);
+}
+
+.hero-gallery-card::after {
+  position: absolute;
+  inset: 0;
+  content: '';
+  background: linear-gradient(135deg, rgba(80, 150, 230, 0.12), transparent 55%), linear-gradient(transparent 42%, rgba(8, 10, 14, 0.62));
+}
+
+.hero-gallery-card figcaption {
+  position: absolute;
+  z-index: 1;
+  right: 13px;
+  bottom: 12px;
+  left: 13px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.hero-gallery-card figcaption span {
+  color: rgba($color-accent, 0.9);
+  font-family: $font-mono;
+  font-size: 9px;
+}
+
+.hero-gallery-card figcaption strong {
+  color: rgba($color-white, 0.82);
+  font-size: 11px;
+  font-weight: 500;
 }
 
 .hero-overlay {
   position: absolute;
+  z-index: -1;
   inset: 0;
-  background: rgba(10, 12, 17, 0.78);
+  background:
+    linear-gradient(90deg, rgba(16, 18, 24, 0.82) 0%, rgba(16, 18, 24, 0.34) 35%, rgba(16, 18, 24, 0.34) 65%, rgba(16, 18, 24, 0.82) 100%),
+    linear-gradient(180deg, rgba(16, 18, 24, 0.5), rgba(16, 18, 24, 0.28) 48%, rgba(16, 18, 24, 0.7));
+}
+
+.hero-vignette {
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(circle at center, transparent 18%, rgba(9, 11, 16, 0.14) 64%, rgba(9, 11, 16, 0.52) 100%);
 }
 
 .hero-content {
   position: relative;
   z-index: 1;
+  min-width: 0;
+  max-width: 850px;
   padding-top: 112px;
   padding-bottom: 80px;
+  text-align: center;
 }
 
 .hero-eyebrow {
@@ -195,6 +380,7 @@ const advantages = [
 .hero-title {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
   max-width: 900px;
   margin-bottom: 26px;
   font-size: 68px;
@@ -211,6 +397,9 @@ const advantages = [
 
 .hero-intro {
   max-width: 760px;
+  overflow-wrap: anywhere;
+  margin-right: auto;
+  margin-left: auto;
   color: #b6bdc8;
   font-size: 16px;
   opacity: 0;
@@ -220,6 +409,7 @@ const advantages = [
 .hero-actions {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
   gap: 12px;
   margin-top: 34px;
 }
@@ -231,6 +421,108 @@ const advantages = [
 
 .hero-actions .button:nth-child(2) {
   animation-delay: 2.1s;
+}
+
+.recruitment-video {
+  margin: 0 0 34px;
+  padding: 22px;
+  background: rgba($color-surface, 0.72);
+  border: 1px solid $color-border;
+  border-radius: $radius-md;
+}
+
+.recruitment-video-heading {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 16px;
+}
+
+.recruitment-video-heading .eyebrow {
+  display: block;
+  margin-bottom: 8px;
+  color: $color-accent;
+  font-family: $font-mono;
+  font-size: 10px;
+}
+
+.recruitment-video-heading h3 {
+  overflow-wrap: anywhere;
+  margin-bottom: 6px;
+  color: $color-white;
+  font-size: 20px;
+  font-weight: 550;
+}
+
+.recruitment-video-heading p {
+  overflow-wrap: anywhere;
+  color: $color-text;
+  font-size: 13px;
+}
+
+.recruitment-video-status {
+  flex: none;
+  color: $color-text-soft;
+  font-family: $font-mono;
+  font-size: 10px;
+}
+
+.recruitment-video-player {
+  position: relative;
+  overflow: hidden;
+  min-height: clamp(220px, 42vw, 500px);
+  background: $color-bg-deep;
+  border: 1px solid $color-border;
+  border-radius: $radius-sm;
+}
+
+.recruitment-video-player video {
+  display: block;
+  width: 100%;
+  max-height: 560px;
+  aspect-ratio: 16 / 9;
+  object-fit: contain;
+  background: #080a0e;
+}
+
+.recruitment-video-empty {
+  display: grid;
+  min-height: clamp(220px, 42vw, 500px);
+  place-items: center;
+  align-content: center;
+  gap: 9px;
+  padding: 30px;
+  color: $color-text-soft;
+  background:
+    linear-gradient(rgba($color-border, 0.7) 1px, transparent 1px),
+    linear-gradient(90deg, rgba($color-border, 0.7) 1px, transparent 1px),
+    $color-bg-deep;
+  background-size: 34px 34px;
+  text-align: center;
+}
+
+.recruitment-video-empty::before {
+  width: 42px;
+  height: 42px;
+  content: '▶';
+  color: $color-accent;
+  font-size: 17px;
+  line-height: 42px;
+  text-align: center;
+  background: $color-accent-soft;
+  border: 1px solid rgba($color-accent, 0.32);
+  border-radius: 50%;
+}
+
+.recruitment-video-empty strong {
+  color: $color-white;
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.recruitment-video-empty span {
+  font-size: 12px;
 }
 
 .scroll-cue {
@@ -395,12 +687,15 @@ const advantages = [
 
 .recruitment-inner {
   display: flex;
+  min-width: 0;
   align-items: flex-end;
   justify-content: space-between;
   gap: 42px;
 }
 
 .recruitment-inner h2 { margin-bottom: 14px; }
+.recruitment-inner h2,
+.recruitment-inner p { overflow-wrap: anywhere; }
 .recruitment-inner p { max-width: 700px; font-size: 14px; }
 .recruitment-inner .button { flex: none; }
 
@@ -419,8 +714,21 @@ const advantages = [
   to { opacity: 1; transform: translateY(0); }
 }
 
+@keyframes hero-marquee-left {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+@keyframes hero-marquee-right {
+  from { transform: translateX(-50%); }
+  to { transform: translateX(0); }
+}
+
 @media (max-width: 900px) {
   .hero-title { font-size: 56px; }
+  .hero-gallery { inset: -4% -18%; gap: 12px; }
+  .hero-gallery-group { gap: 12px; padding-right: 12px; }
+  .hero-gallery-card { flex-basis: 230px; height: 150px; }
   .environment-grid { grid-template-columns: 1fr; }
   .environment-side { grid-template-columns: 1fr 1fr; grid-template-rows: auto; }
   .environment-image--secondary { min-height: 300px; }
@@ -430,6 +738,13 @@ const advantages = [
 }
 
 @media (max-width: $breakpoint-mobile) {
+  .home-page,
+  .home-page .section,
+  .home-page .container {
+    max-width: 100%;
+    overflow-x: clip;
+  }
+
   .home-hero { min-height: 82svh; }
   .hero-content { padding-top: 105px; padding-bottom: 62px; }
   .hero-eyebrow { max-width: 250px; font-size: 10px; }
@@ -437,12 +752,61 @@ const advantages = [
   .hero-intro { font-size: 14px; line-height: 1.8; }
   .hero-actions { margin-top: 28px; }
   .scroll-cue { display: none; }
+  .hero-gallery { inset: 0 -40%; gap: 10px; opacity: 0.9; }
+  .hero-gallery-group { gap: 10px; padding-right: 10px; }
+  .hero-gallery-card { flex-basis: 190px; height: 122px; border-radius: 9px; }
+  .hero-gallery-card figcaption { right: 10px; bottom: 9px; left: 10px; }
+  .hero-gallery-card figcaption strong { font-size: 10px; }
+  .recruitment-video { padding: 16px; }
+  .recruitment-video-heading { flex-direction: column; gap: 10px; }
+  .recruitment-video-status { align-self: flex-start; }
   .environment-side { grid-template-columns: 1fr; }
   .environment-image--primary { min-height: 410px; }
   .environment-image--secondary { min-height: 260px; }
   .advantage-item { padding: 28px 4px; }
   .advantage-top { margin-bottom: 30px; }
-  .recruitment-inner { align-items: flex-start; flex-direction: column; }
+  .advantage-grid,
+  .advantage-item,
+  .advantage-item h3,
+  .advantage-item p,
+  .recruitment-inner,
+  .recruitment-inner > div,
+  .recruitment-inner h2,
+  .recruitment-inner p {
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  .advantage-item h3,
+  .advantage-item p,
+  .recruitment-inner h2,
+  .recruitment-inner p {
+    overflow-wrap: anywhere;
+    word-break: normal;
+    white-space: normal;
+  }
+
+  .recruitment-inner { align-items: flex-start; flex-direction: column; gap: 28px; }
+  .recruitment-inner h2 { font-size: 34px; line-height: 1.25; }
   .recruitment-inner .button { width: 100%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-gallery-track,
+  .hero-eyebrow,
+  .hero-title span,
+  .hero-intro,
+  .hero-actions .button {
+    animation: none;
+  }
+
+  .hero-eyebrow,
+  .hero-title span,
+  .hero-intro,
+  .hero-actions .button {
+    opacity: 1;
+    transform: none;
+  }
 }
 </style>

@@ -1,7 +1,7 @@
 <script setup>
 import { onBeforeUnmount, onMounted, ref, watch } from 'vue'
 import { RouterLink, useRoute } from 'vue-router'
-import { Cpu, Menu, X } from 'lucide-vue-next'
+import { Menu, X } from 'lucide-vue-next'
 import { navItems } from '../data/siteData'
 
 const route = useRoute()
@@ -43,7 +43,9 @@ onBeforeUnmount(() => {
   <header class="site-header" :class="{ 'is-scrolled': isScrolled, 'menu-active': menuOpen }">
     <div class="header-inner">
       <RouterLink class="brand" to="/" aria-label="创新创业实验室首页">
-        <span class="brand-mark"><Cpu :size="19" :stroke-width="1.7" /></span>
+        <span class="brand-mark">
+          <img src="/images/logo.png" alt="" />
+        </span>
         <span class="brand-copy">
           <strong>创新创业实验室</strong>
           <small>创新 · 实践 · 深耕</small>
@@ -140,14 +142,20 @@ onBeforeUnmount(() => {
 }
 
 .brand-mark {
-  display: grid;
-  place-items: center;
+  display: block;
+  flex: none;
   width: 38px;
   height: 38px;
-  color: $color-accent;
-  background: $color-accent-soft;
   border: 1px solid rgba($color-accent, 0.36);
   border-radius: 50%;
+  overflow: hidden;
+  background: $color-white;
+}
+
+.brand-mark img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .brand-copy {

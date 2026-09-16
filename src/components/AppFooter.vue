@@ -1,6 +1,6 @@
 <script setup>
 import { RouterLink } from 'vue-router'
-import { Cpu, MapPin, Mail, ArrowUp } from 'lucide-vue-next'
+import { MapPin, Mail, ArrowUp } from 'lucide-vue-next'
 
 function toTop() {
   window.scrollTo({ top: 0, behavior: 'smooth' })
@@ -11,7 +11,9 @@ function toTop() {
   <footer class="site-footer">
     <div class="container footer-grid">
       <div class="footer-brand">
-        <span class="footer-mark"><Cpu :size="20" /></span>
+        <span class="footer-mark">
+          <img src="/images/logo.png" alt="" />
+        </span>
         <div>
           <strong>创新创业实验室</strong>
           <p>以项目验证知识，用长期实践建立工程能力。</p>
@@ -61,15 +63,20 @@ function toTop() {
 }
 
 .footer-mark {
-  display: grid;
+  display: block;
   flex: none;
-  place-items: center;
   width: 42px;
   height: 42px;
-  color: $color-accent;
-  background: $color-accent-soft;
   border: 1px solid rgba($color-accent, 0.32);
   border-radius: 50%;
+  overflow: hidden;
+  background: $color-white;
+}
+
+.footer-mark img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .footer-brand strong {
