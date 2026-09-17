@@ -126,20 +126,33 @@ const process = [
     <section class="section application-section">
       <div class="container">
         <div v-reveal class="group-channel">
-          <div class="qr-placeholder" aria-label="2026 招新交流群二维码">
-            <img
-              v-show="qrCodeAvailable"
-              :src="qrCodeSrc"
-              alt="2026 招新交流群二维码"
-              @load="qrCodeAvailable = true"
-              @error="qrCodeAvailable = false"
-            />
-            <QrCode v-if="!qrCodeAvailable" :size="58" :stroke-width="1.2" />
+          <div class="group-channel-intro">
+            <span class="group-channel-eyebrow">JOIN THE GROUP</span>
+            <h2>先进入招新群，再慢慢了解我们</h2>
+            <p>招新安排、考核时间和日常答疑都会在群内同步；暂时不确定想加入哪个组别，也可以先进群交流。</p>
+            <ul class="group-channel-list">
+              <li><span>01</span> 获取招新通知与时间安排</li>
+              <li><span>02</span> 了解三大组别的学习方向</li>
+              <li><span>03</span> 和学长学姐直接交流答疑</li>
+            </ul>
           </div>
-          <div class="group-channel-copy">
-            <span>2026 招新交流群</span>
-            <strong>群号：1097332347</strong>
-            <small>请使用手机扫码加入</small>
+
+          <div class="group-channel-qr">
+            <div class="qr-placeholder" aria-label="2026 招新交流群二维码">
+              <img
+                v-show="qrCodeAvailable"
+                :src="qrCodeSrc"
+                alt="2026 招新交流群二维码"
+                @load="qrCodeAvailable = true"
+                @error="qrCodeAvailable = false"
+              />
+              <QrCode v-if="!qrCodeAvailable" :size="58" :stroke-width="1.2" />
+            </div>
+            <div class="group-channel-copy">
+              <span>2026 招新交流群</span>
+              <strong>群号：1097332347</strong>
+              <small>请使用手机扫码加入</small>
+            </div>
           </div>
         </div>
       </div>
@@ -260,11 +273,11 @@ const process = [
 .application-section { border-top: 1px solid $color-border; }
 
 .group-channel {
-  display: flex;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
   align-items: center;
-  justify-content: center;
-  gap: clamp(28px, 6vw, 72px);
-  width: min(100%, 760px);
+  gap: clamp(32px, 6vw, 84px);
+  width: min(100%, 940px);
   margin-inline: auto;
   padding: clamp(26px, 5vw, 48px);
   background: rgba($color-surface, 0.72);
@@ -272,15 +285,66 @@ const process = [
   border-radius: $radius-md;
 }
 
+.group-channel-eyebrow {
+  display: block;
+  margin-bottom: 16px;
+  color: $color-accent;
+  font-family: $font-mono;
+  font-size: 10px;
+  letter-spacing: 0.12em;
+}
+
+.group-channel-intro h2 {
+  margin: 0 0 12px;
+  color: $color-white;
+  font-size: clamp(22px, 3vw, 30px);
+}
+
+.group-channel-intro > p {
+  max-width: 480px;
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.85;
+}
+
+.group-channel-list {
+  display: grid;
+  gap: 9px;
+  margin-top: 24px;
+  padding: 0;
+  list-style: none;
+}
+
+.group-channel-list li {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  color: $color-text;
+  font-size: 12px;
+}
+
+.group-channel-list span {
+  color: $color-accent;
+  font-family: $font-mono;
+  font-size: 10px;
+}
+
+.group-channel-qr {
+  display: grid;
+  justify-items: center;
+  gap: 15px;
+  flex: none;
+}
+
 .qr-placeholder {
   display: grid;
   flex: none;
   place-items: center;
-  width: 220px;
-  height: 220px;
+  width: clamp(166px, 20vw, 204px);
+  aspect-ratio: 1036 / 967;
   overflow: hidden;
   color: $color-accent;
-  background: #f0f2f5;
+  background: #262626;
   border-radius: $radius-sm;
 }
 
@@ -288,13 +352,14 @@ const process = [
   display: block;
   width: 100%;
   height: 100%;
-  object-fit: contain;
+  object-fit: cover;
 }
 
 .group-channel span,
 .group-channel strong,
 .group-channel small { display: block; }
-.group-channel span { color: $color-text-soft; font-size: 11px; }
+.group-channel-copy { text-align: center; }
+.group-channel-copy span { color: $color-text-soft; font-size: 11px; }
 .group-channel strong { margin: 8px 0; color: $color-white; font-size: clamp(20px, 3vw, 28px); }
 .group-channel small { color: $color-text-soft; font-size: 10px; }
 
@@ -312,7 +377,9 @@ const process = [
   .join-process { grid-template-columns: 1fr; }
   .join-process article { min-height: 0; }
   .process-group { grid-template-columns: 70px 1fr; }
-  .group-channel { flex-direction: column; gap: 22px; text-align: center; }
-  .qr-placeholder { width: min(220px, 72vw); height: min(220px, 72vw); }
+  .group-channel { grid-template-columns: 1fr; gap: 30px; text-align: center; }
+  .group-channel-intro > p { margin-inline: auto; }
+  .group-channel-list { justify-items: center; }
+  .qr-placeholder { width: min(204px, 68vw); }
 }
 </style>
