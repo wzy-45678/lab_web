@@ -1,7 +1,6 @@
 <script setup>
 import { ref } from 'vue'
 import {
-  ArrowRight,
   Check,
   ClipboardCheck,
   MessageSquareText,
@@ -11,7 +10,6 @@ import {
 import PageHero from '../components/PageHero.vue'
 import SectionHeading from '../components/SectionHeading.vue'
 
-const submitted = ref(false)
 const qrCodeAvailable = ref(false)
 const qrCodeSrc = '/images/ewm.png'
 
@@ -47,9 +45,6 @@ const process = [
   },
 ]
 
-function handleSubmit() {
-  submitted.value = true
-}
 </script>
 
 <template>
@@ -129,77 +124,24 @@ function handleSubmit() {
     </section>
 
     <section class="section application-section">
-      <div class="container application-grid">
-        <div v-reveal class="application-copy">
-          <span class="eyebrow">APPLICATION</span>
-          <h2>预报名信息</h2>
-          <p>此表单为纯前端展示，不会上传或保存任何个人信息。正式报名请通过实验室招新群完成。</p>
-
-          <div class="group-channel">
-            <div class="qr-placeholder" aria-label="招新群二维码占位区域">
-              <img
-                v-show="qrCodeAvailable"
-                :src="qrCodeSrc"
-                alt="2026 招新交流群二维码"
-                @load="qrCodeAvailable = true"
-                @error="qrCodeAvailable = false"
-              />
-              <QrCode v-if="!qrCodeAvailable" :size="58" :stroke-width="1.2" />
-            </div>
-            <div>
-              <span>2026 招新交流群</span>
-              <strong>群号:1097332347</strong>
-              <small>请使用手机扫码加入</small>
-            </div>
+      <div class="container">
+        <div v-reveal class="group-channel">
+          <div class="qr-placeholder" aria-label="2026 招新交流群二维码">
+            <img
+              v-show="qrCodeAvailable"
+              :src="qrCodeSrc"
+              alt="2026 招新交流群二维码"
+              @load="qrCodeAvailable = true"
+              @error="qrCodeAvailable = false"
+            />
+            <QrCode v-if="!qrCodeAvailable" :size="58" :stroke-width="1.2" />
+          </div>
+          <div class="group-channel-copy">
+            <span>2026 招新交流群</span>
+            <strong>群号：1097332347</strong>
+            <small>请使用手机扫码加入</small>
           </div>
         </div>
-
-        <form v-reveal="{ delay: 120 }" class="application-form" @submit.prevent="handleSubmit">
-          <div class="field-row">
-            <label>
-              <span>姓名</span>
-              <input type="text" placeholder="请输入姓名" required />
-            </label>
-            <label>
-              <span>年级</span>
-              <select required>
-                <option value="" disabled selected>请选择年级</option>
-                <option>大一</option>
-                <option>大二</option>
-                <option>大三及以上</option>
-              </select>
-            </label>
-          </div>
-
-          <label>
-            <span>专业</span>
-            <input type="text" placeholder="例如：电子信息工程" required />
-          </label>
-
-          <label>
-            <span>感兴趣的方向</span>
-            <select required>
-              <option value="" disabled selected>请选择方向</option>
-              <option>嵌入式开发</option>
-              <option>硬件电路</option>
-              <option>软件开发</option>
-            </select>
-          </label>
-
-          <label>
-            <span>想对我们说的话</span>
-            <textarea rows="4" placeholder="简单介绍你的兴趣或实践经历" />
-          </label>
-
-          <button class="button button--primary" type="submit">
-            提交预报名（演示）
-            <ArrowRight :size="17" />
-          </button>
-
-          <p v-if="submitted" class="form-message" role="status">
-            演示提交完成。当前页面不会保存数据，请通过招新群完成正式报名。
-          </p>
-        </form>
       </div>
     </section>
 
@@ -317,30 +259,25 @@ function handleSubmit() {
 
 .application-section { border-top: 1px solid $color-border; }
 
-.application-grid {
-  display: grid;
-  grid-template-columns: minmax(0, 0.8fr) minmax(440px, 1.2fr);
-  gap: 80px;
-}
-
-.application-copy h2 { margin-bottom: 14px; }
-.application-copy > p { max-width: 480px; font-size: 13px; }
-
 .group-channel {
   display: flex;
   align-items: center;
-  gap: 24px;
-  margin-top: 36px;
-  padding-top: 28px;
-  border-top: 1px solid $color-border;
+  justify-content: center;
+  gap: clamp(28px, 6vw, 72px);
+  width: min(100%, 760px);
+  margin-inline: auto;
+  padding: clamp(26px, 5vw, 48px);
+  background: rgba($color-surface, 0.72);
+  border: 1px solid $color-border;
+  border-radius: $radius-md;
 }
 
 .qr-placeholder {
   display: grid;
   flex: none;
   place-items: center;
-  width: 200px;
-  height: 185px;
+  width: 220px;
+  height: 220px;
   overflow: hidden;
   color: $color-accent;
   background: #f0f2f5;
@@ -358,56 +295,8 @@ function handleSubmit() {
 .group-channel strong,
 .group-channel small { display: block; }
 .group-channel span { color: $color-text-soft; font-size: 11px; }
-.group-channel strong { margin: 5px 0; color: $color-white; font-size: 18px; }
+.group-channel strong { margin: 8px 0; color: $color-white; font-size: clamp(20px, 3vw, 28px); }
 .group-channel small { color: $color-text-soft; font-size: 10px; }
-
-.application-form {
-  display: grid;
-  gap: 20px;
-  padding: 32px;
-  background: $color-surface;
-  border: 1px solid $color-border;
-  border-radius: $radius-md;
-}
-
-.field-row {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 16px;
-}
-
-.application-form label { display: grid; gap: 8px; }
-.application-form label > span { color: $color-white; font-size: 12px; }
-
-.application-form input,
-.application-form select,
-.application-form textarea {
-  width: 100%;
-  min-height: 44px;
-  padding: 10px 12px;
-  color: $color-white;
-  background: $color-bg;
-  border: 1px solid $color-border;
-  border-radius: $radius-sm;
-  outline: none;
-  font-size: 13px;
-  transition: border-color $transition, box-shadow $transition;
-}
-
-.application-form textarea { min-height: 112px; resize: vertical; }
-.application-form input::placeholder,
-.application-form textarea::placeholder { color: #626a76; }
-
-.application-form input:focus,
-.application-form select:focus,
-.application-form textarea:focus {
-  border-color: $color-accent;
-  box-shadow: 0 0 0 3px rgba($color-accent, 0.12);
-}
-
-.application-form option { color: $color-white; background: $color-bg; }
-.application-form .button { width: 100%; }
-.form-message { padding: 11px 13px; color: $color-success; background: rgba($color-success, 0.08); border: 1px solid rgba($color-success, 0.22); border-radius: $radius-sm; font-size: 11px; }
 
 .interview-section { padding-top: 70px; background: rgba($color-bg-deep, 0.42); border-top: 1px solid $color-border; }
 .interview-note { padding-block: 34px; border-top: 1px solid $color-border; border-bottom: 1px solid $color-border; }
@@ -416,17 +305,14 @@ function handleSubmit() {
 .interview-note p { max-width: 720px; font-size: 13px; }
 
 @media (max-width: 900px) {
-  .join-overview,
-  .application-grid { grid-template-columns: 1fr; gap: 44px; }
+  .join-overview { grid-template-columns: 1fr; gap: 44px; }
 }
 
 @media (max-width: 720px) {
   .join-process { grid-template-columns: 1fr; }
   .join-process article { min-height: 0; }
   .process-group { grid-template-columns: 70px 1fr; }
-  .field-row { grid-template-columns: 1fr; }
-  .application-form { padding: 22px; }
-  .group-channel { align-items: flex-start; gap: 16px; }
-  .qr-placeholder { width: 140px; height: 140px; }
+  .group-channel { flex-direction: column; gap: 22px; text-align: center; }
+  .qr-placeholder { width: min(220px, 72vw); height: min(220px, 72vw); }
 }
 </style>

@@ -22,7 +22,7 @@ function toTop() {
 
       <div class="footer-contact">
         <span><MapPin :size="15" /> 综合实验楼 · 512</span>
-        <span><Mail :size="15" /> 暂未开放</span>
+        <span><Mail :size="15" /> QQ群: 1097332347</span>
       </div>
 
       <div class="footer-actions">
