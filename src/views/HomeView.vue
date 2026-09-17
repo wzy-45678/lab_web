@@ -1,4 +1,5 @@
 <script setup>
+import { computed } from 'vue'
 import { RouterLink } from 'vue-router'
 import {
   ArrowDown,
@@ -51,12 +52,25 @@ const heroGalleryRows = [
   { direction: 'to-right', duration: '45s', photos: rotateGalleryPhotos(1) },
 ]
 
-// 招新视频：填写腾讯云 COS 对象的公开访问地址即可，视频文件不需要放进 Git。
-// 例：src: 'https://你的存储桶.cos.ap-shanghai.myqcloud.com/videos/recruitment.mp4'
+// 招新视频：填写 B 站完整视频链接或 BV 号即可，不需要上传视频文件到 Git。
+// 例：url: 'https://www.bilibili.com/video/BV1xxxxxxxxx/'
+// 请勿填写 b23.tv 短链接，因为短链接本身不包含 BV 号。
 const recruitmentVideo = {
-  src: 'https://lab-web-1484557677.cos.ap-nanjing.myqcloud.com/lab_source/xcsp.mp4',
+  url: 'https://www.bilibili.com/video/BV1zae36SE53?vd_source=04b20f46ef82374a16e887c11c4ff0b9',
   title: '实验室招新视频',
   description: '用一段视频了解实验室的工作环境、项目实践和团队日常。',
+}
+
+const recruitmentVideoBvid = computed(() => getBilibiliVideoId(recruitmentVideo.url))
+const recruitmentVideoEmbedUrl = computed(() => {
+  if (!recruitmentVideoBvid.value) return ''
+  return `https://player.bilibili.com/player.html?bvid=${encodeURIComponent(recruitmentVideoBvid.value)}&page=1&high_quality=1&danmaku=0`
+})
+
+function getBilibiliVideoId(source) {
+  if (!source || typeof source !== 'string') return ''
+  const match = source.trim().match(/\b(BV[\w]+)\b/i)
+  return match ? match[1] : ''
 }
 
 const advantages = [
@@ -166,19 +180,19 @@ const advantages = [
             <span class="recruitment-video-status">VIDEO / 01</span>
           </div>
           <div class="recruitment-video-player">
-            <video
-              v-if="recruitmentVideo.src"
-              :src="recruitmentVideo.src"
-              :poster="recruitmentVideo.poster"
-              controls
-              preload="metadata"
-              playsinline
-            >
-              你的浏览器不支持视频播放，请更换浏览器后重试。
-            </video>
+            <iframe
+              v-if="recruitmentVideoEmbedUrl"
+              class="recruitment-video-embed"
+              :src="recruitmentVideoEmbedUrl"
+              :title="recruitmentVideo.title"
+              loading="lazy"
+              allow="fullscreen; autoplay; encrypted-media; picture-in-picture"
+              allowfullscreen
+              referrerpolicy="strict-origin-when-cross-origin"
+            ></iframe>
             <div v-else class="recruitment-video-empty">
               <strong>招新视频待上传</strong>
-              <span>将腾讯云 COS 的视频公开地址填入 recruitmentVideo.src</span>
+              <span>将 B 站完整视频链接或 BV 号填入 recruitmentVideo.url</span>
             </div>
           </div>
         </article>
@@ -477,13 +491,12 @@ const advantages = [
   border-radius: $radius-sm;
 }
 
-.recruitment-video-player video {
+.recruitment-video-embed {
   display: block;
   width: 100%;
-  max-height: 560px;
   aspect-ratio: 16 / 9;
-  object-fit: contain;
-  background: #080a0e;
+  border: 0;
+  background: $color-bg-deep;
 }
 
 .recruitment-video-empty {

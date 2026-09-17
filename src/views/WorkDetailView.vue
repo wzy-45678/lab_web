@@ -15,7 +15,7 @@ const videoList = computed(() => {
 })
 const activeVideoIndex = ref(0)
 const activeVideo = computed(() => videoList.value[activeVideoIndex.value] || null)
-const activeVideoBvid = computed(() => getBilibiliVideoId(activeVideo.value?.src))
+const activeVideoBvid = computed(() => getBilibiliVideoId(activeVideo.value?.url))
 const activeVideoEmbedUrl = computed(() => {
   if (!activeVideoBvid.value) return ''
   return `https://player.bilibili.com/player.html?bvid=${encodeURIComponent(activeVideoBvid.value)}&page=1&high_quality=1&danmaku=0`
@@ -52,13 +52,8 @@ function selectVideo(index) {
 
 function getBilibiliVideoId(source) {
   if (!source || typeof source !== 'string') return ''
-  try {
-    const url = new URL(source)
-    const match = url.pathname.match(/\/video\/(BV[\w]+)/i)
-    return match ? match[1] : ''
-  } catch {
-    return ''
-  }
+  const match = source.trim().match(/\b(BV[\w]+)\b/i)
+  return match ? match[1] : ''
 }
 
 function handlePhotoKeydown(event) {
@@ -145,7 +140,7 @@ onUnmounted(() => window.removeEventListener('keydown', handlePhotoKeydown))
           <div v-if="videoList.length > 1" class="video-tabs" role="tablist" aria-label="选择项目视频">
             <button
               v-for="(video, index) in videoList"
-              :key="`${video.src}-${index}`"
+              :key="`${video.url || video.src}-${index}`"
               class="video-tab"
               :class="{ 'is-active': activeVideoIndex === index }"
               type="button"
@@ -164,7 +159,7 @@ onUnmounted(() => window.removeEventListener('keydown', handlePhotoKeydown))
               <a
                 v-if="activeVideoEmbedUrl"
                 class="video-external-link"
-                :href="activeVideo.src"
+                :href="activeVideo.url"
                 target="_blank"
                 rel="noopener noreferrer"
               >
@@ -184,7 +179,7 @@ onUnmounted(() => window.removeEventListener('keydown', handlePhotoKeydown))
               referrerpolicy="strict-origin-when-cross-origin"
             ></iframe>
             <video
-              v-else
+              v-else-if="activeVideo.src"
               :key="activeVideo.src"
               :src="activeVideo.src"
               :poster="activeVideo.poster || undefined"
@@ -194,6 +189,11 @@ onUnmounted(() => window.removeEventListener('keydown', handlePhotoKeydown))
             >
               你的浏览器不支持视频播放。
             </video>
+            <div v-else class="video-empty">
+              <Video :size="28" :stroke-width="1.25" />
+              <strong>视频链接待补充</strong>
+              <span>请在 siteData.js 中补充该项目的视频地址。</span>
+            </div>
           </article>
         </div>
         <div v-else v-reveal class="media-empty">
@@ -458,6 +458,21 @@ onUnmounted(() => window.removeEventListener('keydown', handlePhotoKeydown))
   background: #080a0e;
 }
 
+.video-empty {
+  display: grid;
+  min-height: 360px;
+  place-items: center;
+  align-content: center;
+  gap: 10px;
+  padding: 28px;
+  color: $color-text-soft;
+  text-align: center;
+}
+
+.video-empty svg { color: $color-accent; }
+.video-empty strong { color: $color-white; font-size: 14px; font-weight: 500; }
+.video-empty span { font-size: 12px; }
+
 .media-empty {
   display: grid;
   min-height: 330px;
@@ -624,6 +639,7 @@ onUnmounted(() => window.removeEventListener('keydown', handlePhotoKeydown))
   .detail-gallery { grid-template-columns: 1fr; }
   .media-empty { min-height: 240px; }
   .video-embed { min-height: 240px; }
+  .video-empty { min-height: 240px; }
   .cta-panel { align-items: flex-start; flex-direction: column; padding: 28px 24px; }
   .project-lightbox { gap: 8px; padding: 64px 14px 30px; }
   .lightbox-nav { width: 34px; height: 42px; }

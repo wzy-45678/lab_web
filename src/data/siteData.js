@@ -192,8 +192,9 @@ export const projects = [
       '接触蓝牙通信和网页交互，让设备数据可以被实时查看。',
       '了解一个智能硬件项目从功能设计到演示落地的基本流程。',
     ],
-    // 视频文件超过 GitHub 与 Cloudflare Pages 的静态文件限制，上传到视频平台后再填入外链。
-    video: { src: 'https://lab-web-1484557677.cos.ap-nanjing.myqcloud.com/lab_source/wzyzxlhfqs.mp4', poster: '/images/qsfm.jpg', label: '项目演示视频' },
+    // 养老手环视频：填写 B 站完整视频链接或 BV 号；请勿填写 b23.tv 短链接。
+    // 例：url: 'https://www.bilibili.com/video/BV1xxxxxxxxx/'
+    video: { url: 'https://www.bilibili.com/video/BV1WjNz6YEMF?vd_source=04b20f46ef82374a16e887c11c4ff0b9', label: '项目演示视频' },
     gallery: [
       { src: '/images/wzyzxlhfqs.jpg', alt: '项目成果照片', caption: '获奖证书' },
       { src: '/images/qszs2.jpg', alt: '项目成果照片', caption: '作品展示1' },
@@ -219,8 +220,8 @@ export const projects = [
     ],
 
     videos: [
-      {src: '/videos/dssp.mp4', label: '项目演示视频', },
-      {src: '/videos/dssp2.mp4', label: '项目演示视频', },
+      { src: '/videos/dssp.mp4', label: '项目演示视频 01' },
+      { src: '/videos/dssp2.mp4', label: '项目演示视频 02' },
     ],
 
     gallery: [
